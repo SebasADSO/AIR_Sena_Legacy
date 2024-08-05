@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-07-2024 a las 01:10:53
+-- Tiempo de generación: 06-08-2024 a las 01:00:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,16 +37,16 @@ CREATE TABLE `tb_condicion_usua` (
 --
 
 INSERT INTO `tb_condicion_usua` (`cod_usuario_fk`, `condicion_usuario`) VALUES
-(96, 'Ninguna'),
-(96, 'Ninguna'),
-(96, 'Discapacidad intelectual'),
-(96, 'Discapacidad auditiva'),
-(96, 'Ninguna'),
-(123, 'Discapacidad física'),
-(123, 'Discapacidad intelectual'),
-(123, 'Discapacidad auditiva'),
-(123, 'Discapacidad visual'),
-(123, 'Discapacidad psíquica');
+(78, 'Ninguna'),
+(78, 'Ninguna'),
+(78, 'Discapacidad física'),
+(78, 'Ninguna'),
+(78, 'Ninguna'),
+(28, 'Ninguna'),
+(28, 'Ninguna'),
+(28, 'Ninguna'),
+(28, 'Ninguna'),
+(28, 'Ninguna');
 
 -- --------------------------------------------------------
 
@@ -66,10 +66,7 @@ CREATE TABLE `tb_encargadoyinstructor` (
 --
 
 INSERT INTO `tb_encargadoyinstructor` (`cod_usuario_fk`, `espec_encargado`, `nivel_formacion`, `dia_laboral`) VALUES
-(96, 'instructor', 'Doctorado', 'Lunes; Miercoles; Sabado; '),
-(96, 'instructor', 'Doctorado', 'Lunes; Miercoles; Sabado; '),
-(123, 'funcionario', 'Especialista', 'Lunes; Martes; Miercoles; '),
-(123, 'funcionario', 'Especialista', 'Lunes; Martes; Miercoles; ');
+(28, 'instructor', 'Doctorado', 'Lunes; Miercoles; Viernes; ');
 
 -- --------------------------------------------------------
 
@@ -99,6 +96,13 @@ CREATE TABLE `tb_programayficha` (
   `inicio_produc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tb_programayficha`
+--
+
+INSERT INTO `tb_programayficha` (`cod_usuario_fk`, `cod_programa`, `numero_ficha`, `nombre_programa`, `jornada_programa`, `fecha_inicio`, `fecha_final`, `inicio_produc`) VALUES
+(78, 213123, 123213123, 'ADSO', 'Mañana', '2024-08-05', '2024-08-05', '2024-08-05');
+
 -- --------------------------------------------------------
 
 --
@@ -112,7 +116,7 @@ CREATE TABLE `tb_reporte` (
   `descripcion_reporte` varchar(240) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `ubicacion` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `fecha_hora_reporte` timestamp NOT NULL DEFAULT current_timestamp(),
-  `soporte_reporte` blob NOT NULL
+  `soporte_reporte` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -137,11 +141,12 @@ CREATE TABLE `tb_revision` (
 CREATE TABLE `tb_usuario` (
   `cod_usuario` int(11) NOT NULL,
   `tipo_docu_usuario` enum('Cedula de Ciudadania','Tarjeta de Indetidad','Cedula de Extranjeria','PEP','Permiso por protección Temporal') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `cedula_usuario` double NOT NULL,
+  `cedula_usuario` bigint(20) NOT NULL,
   `nombre_usuario` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `apell_usuario` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `email_usuario` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `pass_user` varbinary(16) NOT NULL,
+  `estado` enum('ACTIVO','INACTIVO') NOT NULL,
   `rol_user` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -149,10 +154,9 @@ CREATE TABLE `tb_usuario` (
 -- Volcado de datos para la tabla `tb_usuario`
 --
 
-INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `rol_user`) VALUES
-(84, 'Cedula de Ciudadania', 798797878, 'APRENDIZ', 'SENA', 'test@gmail.com', 0x53454e4131323334, ''),
-(96, 'Cedula de Ciudadania', 123456789, 'Sena', 'Usuario', 'test@gmail.com', 0x53656e6131323334, 'instructor'),
-(123, 'Cedula de Ciudadania', 4651132311, 'Alvaro', 'Uribe', 'firtsparaco@gmail.com', 0x50415241434f3737, '');
+INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
+(28, 'Cedula de Ciudadania', 464546546, 'Pepito', 'Perez', 'sena@gmail.com', 0x53656e6131323334, 'ACTIVO', 'instructor'),
+(78, 'Cedula de Ciudadania', 789456123, 'User', 'Aprendiz', 'prueba@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz');
 
 --
 -- Índices para tablas volcadas
@@ -216,7 +220,7 @@ ALTER TABLE `tb_reporte`
 -- AUTO_INCREMENT de la tabla `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Restricciones para tablas volcadas

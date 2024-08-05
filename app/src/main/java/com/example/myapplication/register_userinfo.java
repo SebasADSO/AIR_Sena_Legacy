@@ -59,7 +59,7 @@ public class register_userinfo extends AppCompatActivity {
         inforol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobar_user("http://192.168.43.143/AIR_Database/register_comprobar.php");
+                comprobar_user("http://10.201.131.12/AIR_Database/register_comprobar.php");
                 Intent register_validar=new Intent(register_userinfo.this, verificar_info.class);
                         if(txt_nombre.getText().toString().isEmpty() || txt_apellidos.getText().toString().isEmpty() || txt_n_doc.getText().toString().isEmpty() || txt_email_user.getText().toString().isEmpty() || txt_password.getText().toString().isEmpty()) {
                             Toast.makeText( register_userinfo.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();

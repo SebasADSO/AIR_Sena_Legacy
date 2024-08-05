@@ -42,7 +42,11 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login_user("http://192.168.43.143/AIR_Database/Login_usuario.php");
+                if (!ndoc.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty()) {
+                    login_user("http://10.201.131.12/AIR_Database/Login_usuario.php");
+                } else if (ndoc.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Los campos estan vacios", Toast.LENGTH_LONG).show();
+                }
             }
         });
         docselect = findViewById(R.id.docselect);
@@ -80,7 +84,7 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
                     startActivity(login);
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Las credenciales son incorrectas", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {

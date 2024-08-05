@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -49,7 +50,6 @@ public class register_rolinfo extends AppCompatActivity {
         Bundle user_extra = getIntent().getExtras();
         user_id = user_extra.getString("user_id");
         user_rol = user_extra.getString("rol");
-        Intent condicion = new Intent(register_rolinfo.this, register_condicion.class);
         fecha1 = findViewById(R.id.fecha1);
         fecha2 = findViewById(R.id.fecha2);
         fecha3 = findViewById(R.id.fecha3);
@@ -63,7 +63,6 @@ public class register_rolinfo extends AppCompatActivity {
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                servicio("http://10.201.131.12/AIR_Database/register_aprendiz.php");
                 if (txt_cod_program.getText().toString().isEmpty() || txt_num_ficha.getText().toString().isEmpty() || txt_nombre_programa.getText().toString().isEmpty()) {
                     Toast.makeText( register_rolinfo.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();
                 }
@@ -71,13 +70,7 @@ public class register_rolinfo extends AppCompatActivity {
                     Toast.makeText( register_rolinfo.this,"Debe llenar seleccionar las fechas solicitadas", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (estado.equals("Correct")) {
-                        condicion.putExtra("user_id", user_id);
-                        condicion.putExtra("rol", user_rol);
-                        startActivity(condicion);
-                    } else if (estado.equals("failed")) {
-                        Toast.makeText(register_rolinfo.this, "Error: En establecer conexion con el servidor", Toast.LENGTH_LONG).show();
-                    }
+                    servicio("http://10.201.131.12/AIR_Database/register_aprendiz.php");
                 }
             }
         });
@@ -130,16 +123,23 @@ public class register_rolinfo extends AppCompatActivity {
         dialog.show();
     }
     private  void servicio(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "Información registrada correctamente", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                Intent condicion = new Intent(register_rolinfo.this, register_condicion.class);
+                condicion.putExtra("user_id", user_id);
+                condicion.putExtra("rol", user_rol);
+                startActivity(condicion);
                 estado = "Correct";
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getApplicationContext(), "Intente nuevamente", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
                 estado = "failed";
             }
         }){

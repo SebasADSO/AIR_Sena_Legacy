@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -53,7 +54,6 @@ public class register_rolinfo2 extends AppCompatActivity {
         cb_jueves = findViewById(R.id.cb_jueves);
         cb_viernes = findViewById(R.id.cb_viernes);
         cb_sabado = findViewById(R.id.cb_sabado);
-        Intent condicion = new Intent(register_rolinfo2.this, register_condicion.class);
         Spinner_formacion = findViewById(R.id.Spinner_formacion);
         ArrayAdapter<String> selector=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Nivel);
         Spinner_formacion.setAdapter(selector);
@@ -64,21 +64,13 @@ public class register_rolinfo2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDias();
-                servicio("http://10.201.131.12/AIR_Database/register_instruc_func.php");
                 if (txt_cargo_register.getText().toString().isEmpty()) {
                     Toast.makeText( register_rolinfo2.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();
                 }
                 else if (dias.length() < 3) {
                     Toast.makeText( register_rolinfo2.this,"Debe llenar seleccionar al menos un dia", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    if (estado.equals("Correct")) {
-                        condicion.putExtra("user_id", user_id);
-                        condicion.putExtra("rol", user_rol);
-                        startActivity(condicion);
-                    } else if (estado.equals("failed")) {
-                        Toast.makeText(register_rolinfo2.this, "Error: En establecer conexion con el servidor", Toast.LENGTH_LONG).show();
-                    }
+                }else {
+                    servicio("http://10.201.131.12/AIR_Database/register_instruc_func.php");
                 }
             }
         });
@@ -89,16 +81,23 @@ public class register_rolinfo2 extends AppCompatActivity {
         });
     }
     private  void servicio(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                Intent condicion = new Intent(register_rolinfo2.this, register_condicion.class);
+                condicion.putExtra("user_id", user_id);
+                condicion.putExtra("rol", user_rol);
+                startActivity(condicion);
                 estado = "Correct";
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
                 estado = "failed";
             }
         }){

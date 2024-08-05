@@ -54,7 +54,14 @@ public class usuario_condicion extends AppCompatActivity {
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                switch (rol){
+                    case "aprendiz":
+                        return;
+                    case "instructor":
+                        return;
+                    case "funcionario":
+                        return;
+                }
             }
         });
         btt_next_menu.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +73,8 @@ public class usuario_condicion extends AppCompatActivity {
                 finishAffinity();
             }
         });
-        buscarid("http://192.168.43.143/AIR_Database/userinfo_condicion.php?cedula_usuario="+ndoc+"");
+        buscarid("http://10.201.131.12/AIR_Database/userinfo_condicion.php?cedula_usuario="+ndoc+"");
+        buscarol("http://10.201.131.12/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -84,25 +92,54 @@ public class usuario_condicion extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
                         Log.d("Bien", response.toString());
-//                        txt_nombre.setText(jsonObject.getString("condicion_usuario"));
-//                        txt_apellidos.setText(jsonObject.getString("condicion_usuario"));
-//                        docselect.setText(jsonObject.getString("condicion_usuario"));
-//                        txt_n_doc.setText(jsonObject.getString("condicion_usuario"));
-//                        txt_email_user.setText(jsonObject.getString("condicion_usuario"));
-//                        txt_password.setText(jsonObject.getString("condicion_usuario"));
-                       TextView textView = new TextView(getApplicationContext());
-                       textView.setWidth(200);
-                       textView.setHeight(50);
-                       //textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                       //textView.setTextSize(34);
-                       //textView.setBackground(Drawable.createFromPath("@drawable/roundcorner"));
-                       //textView.setPadding(10,10,10,10);
-                       textView.setText(jsonObject.getString("condicion_usuario"));
-                       container.addView(textView);
-                       //rol = jsonObject.getString("rol_user");
+                        TextView textView = new TextView(getApplicationContext());
+                        TextView textView1 = new TextView(getApplicationContext());
+                        textView.setWidth(200);
+                        textView.setMaxHeight(150);
+                        textView.setMinHeight(150);
+                        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        textView.setTextSize(34);
+                        textView.setBackgroundResource(R.drawable.roundcorner);
+                        textView.setPadding(10,10,10,10);
+                        textView1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        textView1.setTextSize(20);
+                        textView1.setText("Condicion "+(i+1));
+                        textView1.setPadding(10,10,10,10);
+                        textView.setText(jsonObject.getString("condicion_usuario"));
+                        container.addView(textView1);
+                        container.addView(textView);
                     } catch (JSONException e) {
                         loading.dismiss();
                         Log.d("Mal", e.getMessage());
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Log.d("error", error.getMessage().toString());
+                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+    private void buscarol(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        loading.dismiss();
+                        rol = jsonObject.getString("rol_user");
+                    } catch (JSONException e) {
+                        loading.dismiss();
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

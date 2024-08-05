@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -63,6 +64,7 @@ public class register_condicion extends AppCompatActivity {
                 for (int i = 0; i < condiciones.length; i++) {
                     servicio("http://10.201.131.12/AIR_Database/register_condicion.php", i);
                 }
+                validar.putExtra("user_id", user_id);
                 startActivity(validar);
             }
         });

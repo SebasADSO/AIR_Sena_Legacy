@@ -24,6 +24,7 @@ public class register_succes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(Home);
+                finishAffinity();
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

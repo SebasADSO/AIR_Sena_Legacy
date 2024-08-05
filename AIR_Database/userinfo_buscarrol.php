@@ -4,7 +4,7 @@ include 'conexion.php';
 
 $ndoc=$_GET['cedula_usuario'];
 
-$consulta = ("SELECT * FROM tb_condicion_usua WHERE (SELECT cod_usuario FROM tb_usuario WHERE cedula_usuario = '$ndoc') = cod_usuario_fk");
+$consulta = ("SELECT rol_user FROM tb_usuario WHERE cedula_usuario='$ndoc'");
 
 $resultado = $conexion -> query($consulta);
 

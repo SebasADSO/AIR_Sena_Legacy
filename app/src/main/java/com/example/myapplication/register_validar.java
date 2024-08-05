@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -67,6 +68,7 @@ public class register_validar extends AppCompatActivity {
                 code += code_one.getText().toString() + code_two.getText().toString() + code_three.getText().toString() + code_four.getText().toString() + code_five.getText().toString() + code_six.getText().toString();
                 Intent intent = new Intent(register_validar.this, register_succes.class);
                 if (cod_verificar.equals(code)) {
+                    servicio("http://10.201.131.12/AIR_Database/activar_user.php");
                     startActivity(intent);
                 }
                 else {
@@ -128,24 +130,27 @@ public class register_validar extends AppCompatActivity {
     }
 
     private  void servicio(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
                 estado = "Correct";
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
                 estado = "failed";
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("cod_usuario_fk", user_id);
-                parametros.put("espec_encargado", user_rol);
+                parametros.put("cod_usuario", user_id);
+                parametros.put("estado", "ACTIVO");
                 return parametros;
             }
         };

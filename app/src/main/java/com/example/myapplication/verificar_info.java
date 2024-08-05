@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -116,17 +117,20 @@ public class verificar_info extends AppCompatActivity {
         });
     }
     private  void servicio(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 estado = "Correct";
                 Toast.makeText(getApplicationContext(), "Usuario registrado en el sistema", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 estado = "failed";
                 Toast.makeText(getApplicationContext(), "Intente nuevamente", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
             }
         }){
             @Override
@@ -139,6 +143,7 @@ public class verificar_info extends AppCompatActivity {
                 parametros.put("numero_documento", user_n_doc);
                 parametros.put("email", user_correo);
                 parametros.put("contrasena", user_pass);
+                parametros.put("estado", "INACTIVO");
                 parametros.put("rol_user", user_rol);
                 return parametros;
             }
