@@ -1,0 +1,16 @@
+<?php
+include("./conexion.php");
+
+$id=$_POST["cod_usuario"];
+$nombre=$_POST["nombre"];
+$apellido=$_POST["apellido"];
+$tipo_doc=$_POST["tipo_documento"];
+$n_doc=$_POST["numero_documento"];
+$email=$_POST["email"];
+$contrasena=$_POST["contrasena"];
+
+$consulta="INSERT INTO tb_usuario (cod_usuario, tipo_docu_usuario, cedula_usuario, nombre_usuario, apell_usuario, email_usuario, pass_user) VALUES('".$id."','".$tipo_doc."','".$n_doc."','".$nombre."','".$apellido."','".$email."','".$contrasena."')";
+
+mysqli_query($conexion, $consulta) or die ('Error en registrar'.mysqli_error($conexion));
+mysqli_close($conexion);
+?>
