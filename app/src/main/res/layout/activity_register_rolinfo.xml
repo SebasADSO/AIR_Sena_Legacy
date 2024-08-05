@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:paddingStart="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    android:paddingEnd="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="0dp"
+    tools:context=".register_rolinfo">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGISTRO"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="Codigo programa" />
+
+            <EditText
+                android:id="@+id/txt_cod_program"
+                style="TextInputEditText.FilledBox"
+                android:layout_width="344dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/roundcorner"
+                android:backgroundTint="#ABD57B"
+                android:ems="10"
+                android:hint="2xxxxxxx"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="N° de Ficha" />
+
+            <EditText
+                android:id="@+id/txt_num_ficha"
+                style="TextInputEditText.FilledBox"
+                android:layout_width="344dp"
+                android:layout_height="50dp"
+                android:background="@drawable/roundcorner"
+                android:backgroundTint="#ABD57B"
+                android:ems="10"
+                android:hint="2xxxxxxx"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="Nombre del programa de formación" />
+
+            <EditText
+                android:id="@+id/txt_nombre_programa"
+                style="TextInputEditText.FilledBox"
+                android:layout_width="344dp"
+                android:layout_height="50dp"
+                android:background="@drawable/roundcorner"
+                android:backgroundTint="#ABD57B"
+                android:ems="10"
+                android:hint="Analisis....."
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fecha_inicial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:text="Fecha inicio Formación"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/fecha1"
+                            style="TextInputEditText.FilledBox"
+                            android:layout_width="95dp"
+                            android:layout_height="50dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/roundcorner"
+                            android:backgroundTint="#ABD57B"
+                            android:clickable="false"
+                            android:editable="false"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:inputType="date"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        <Button
+                            android:id="@+id/btt_fecha1"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#50B136"
+                            android:onClick="fecha_inicial"
+                            android:textAlignment="viewStart"
+                            app:icon="@drawable/calendar_days" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fecha_final"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha terminación formación"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/fecha2"
+                            style="TextInputEditText.FilledBox"
+                            android:layout_width="95dp"
+                            android:layout_height="50dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/roundcorner"
+                            android:backgroundTint="#ABD57B"
+                            android:editable="false"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:inputType="date"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        <Button
+                            android:id="@+id/btt_fecha2"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#50B136"
+                            android:onClick="fecha_final"
+                            app:icon="@drawable/calendar_days" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Fecha_productiva"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha inicio productiva"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/fecha3"
+                            style="TextInputEditText.FilledBox"
+                            android:layout_width="95dp"
+                            android:layout_height="50dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/roundcorner"
+                            android:backgroundTint="#ABD57B"
+                            android:editable="false"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:inputType="date"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        <Button
+                            android:id="@+id/btt_fecha_productiva"
+                            android:layout_width="65dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#50B136"
+                            android:onClick="fecha_productiva"
+                            app:icon="@drawable/calendar_days" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="50dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/jornada"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Jornada" />
+
+                    <Spinner
+                        android:id="@+id/jornadaSeleccion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btt_next_condicion"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="#50B136"
+                android:text="Siguiente" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

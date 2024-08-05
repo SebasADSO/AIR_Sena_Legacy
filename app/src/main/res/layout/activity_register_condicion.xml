@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    tools:context=".register_condicion">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="REGISTRO"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:text="Usted registro las siguientes condiciones" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/condicion_one"
+                    android:layout_width="344dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B" />
+
+                <Spinner
+                    android:id="@+id/condicion_two"
+                    android:layout_width="344dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B" />
+
+                <Spinner
+                    android:id="@+id/condicion_three"
+                    android:layout_width="344dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B" />
+
+                <Spinner
+                    android:id="@+id/condicion_four"
+                    android:layout_width="344dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B" />
+
+                <Spinner
+                    android:id="@+id/condicion_five"
+                    android:layout_width="344dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btt_next_verificar"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_margin="20dp"
+                android:backgroundTint="#50B136"
+                android:text="Siguiente" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
