@@ -98,13 +98,13 @@ public class menu_reportar extends AppCompatActivity {
         btt_siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buscarid("http://10.201.131.12/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
+                buscarid("http://192.168.43.143/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
                 if (cod_user != null) {
                     //Toast.makeText(getApplicationContext(), cod_user, Toast.LENGTH_SHORT).show();
-                    uploadImage("http://10.201.131.12/AIR_Database/reportar_upload.php");
+                    uploadImage("http://192.168.43.143/AIR_Database/reportar_upload.php");
                 }
                 else {
-                    buscarid("http://10.201.131.12/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
+                    buscarid("http://192.168.43.143/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
                 }
             }
         });

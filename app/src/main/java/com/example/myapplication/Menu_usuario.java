@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class Menu_usuario extends AppCompatActivity {
     RequestQueue requestQueue;
     private TextView txt_nombre, txt_apellidos, txt_email_user, txt_n_doc , docselect;
     String ndoc, rol;
-    Button btt_next_condicion, btt_next_rolinfo, btt_next_menu;
+    Button btt_next_condicion, btt_next_rolinfo, btt_next_menu, btt_next_passchange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,23 @@ public class Menu_usuario extends AppCompatActivity {
         txt_email_user = findViewById(R.id.txt_email_user);
         btt_next_condicion = findViewById(R.id.btt_next_condicion);
         btt_next_rolinfo = findViewById(R.id.btt_next_rolinfo);
+        btt_next_passchange = findViewById(R.id.btt_next_passchange);
+        btt_next_passchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pass_change = new Intent(Menu_usuario.this, recover_password_01.class);
+                startActivity(pass_change);
+            }
+        });
+        ImageButton logout = findViewById(R.id.btt_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent menu_home_back = new Intent(Menu_usuario.this, MainActivity.class);
+                startActivity(menu_home_back);
+                finishAffinity();
+            }
+        });
         btt_next_menu = findViewById(R.id.btt_next_menu);
         btt_next_condicion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,16 +71,29 @@ public class Menu_usuario extends AppCompatActivity {
                 startActivity(condicion);
             }
         });
+        buscarol("http://192.168.43.143/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent aprendiz = new Intent(Menu_usuario.this, usuario_infoA.class);
+                Intent insfuc = new Intent(Menu_usuario.this, usuario_info2.class);
+                Intent insfuc2 = new Intent(Menu_usuario.this, usuario_info2.class);
                 switch (rol){
                     case "aprendiz":
-                        return;
+                        aprendiz.putExtra("doc", ndoc);
+                        Toast.makeText(Menu_usuario.this, rol+"1", Toast.LENGTH_LONG).show();
+                        startActivity(aprendiz);
+                        break;
                     case "instructor":
-                        return;
+                        Toast.makeText(Menu_usuario.this, rol+"2", Toast.LENGTH_LONG).show();
+                        insfuc.putExtra("doc", ndoc);
+                        startActivity(insfuc);
+                        break;
                     case "funcionario":
-                        return;
+                        Toast.makeText(Menu_usuario.this, rol+"3", Toast.LENGTH_LONG).show();
+                        insfuc2.putExtra("doc", ndoc);
+                        startActivity(insfuc2);
+                        break;
                 }
             }
         });
@@ -75,8 +106,7 @@ public class Menu_usuario extends AppCompatActivity {
                 finishAffinity();
             }
         });
-        buscarid("http://10.201.131.12/AIR_Database/userinfo_datauser.php?cedula_usuario="+ndoc+"");
-        buscarol("http://10.201.131.12/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
+        buscarid("http://192.168.43.143/AIR_Database/userinfo_datauser.php?cedula_usuario="+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

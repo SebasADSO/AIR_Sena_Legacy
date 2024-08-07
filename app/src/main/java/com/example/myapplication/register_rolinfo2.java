@@ -70,7 +70,7 @@ public class register_rolinfo2 extends AppCompatActivity {
                 else if (dias.length() < 3) {
                     Toast.makeText( register_rolinfo2.this,"Debe llenar seleccionar al menos un dia", Toast.LENGTH_LONG).show();
                 }else {
-                    servicio("http://10.201.131.12/AIR_Database/register_instruc_func.php");
+                    servicio("http://192.168.43.143/AIR_Database/register_instruc_func.php");
                 }
             }
         });

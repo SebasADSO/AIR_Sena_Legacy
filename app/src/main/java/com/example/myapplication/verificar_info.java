@@ -45,7 +45,7 @@ public class verificar_info extends AppCompatActivity {
         Bundle user_info = extras.getBundle("datos");
         setContentView(R.layout.activity_verificar_info);
         Random rand = new Random();
-        user_id_base = rand.nextInt(200);
+        user_id_base = rand.nextInt(700);
         user_id = Integer.toString(user_id_base);
         name = findViewById(R.id.txt_name);
         last = findViewById(R.id.txt_apellido);
@@ -74,7 +74,7 @@ public class verificar_info extends AppCompatActivity {
             public void onClick(View view) {
                 Intent Instructor_Funcionario = new Intent(verificar_info.this, register_rolinfo2.class);
                 Intent Aprendiz = new Intent(verificar_info.this, register_rolinfo.class);
-                servicio("http://10.201.131.12/AIR_Database/register_userinfo.php");
+                servicio("http://192.168.43.143/AIR_Database/register_userinfo.php");
                 switch (user_rol) {
                     case "aprendiz":
                         if (estado.equals("Correct")) {

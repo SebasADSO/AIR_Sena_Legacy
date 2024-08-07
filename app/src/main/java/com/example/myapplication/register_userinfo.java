@@ -56,35 +56,41 @@ public class register_userinfo extends AppCompatActivity {
         String roltest = rolselect.getString("rol");
         Button inforol = findViewById(R.id.btt_next_register);
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String textPattern = "[a-zA-Z ]+";
         inforol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobar_user("http://10.201.131.12/AIR_Database/register_comprobar.php");
+                comprobar_user("http://192.168.43.143/AIR_Database/register_comprobar.php");
                 Intent register_validar=new Intent(register_userinfo.this, verificar_info.class);
                         if(txt_nombre.getText().toString().isEmpty() || txt_apellidos.getText().toString().isEmpty() || txt_n_doc.getText().toString().isEmpty() || txt_email_user.getText().toString().isEmpty() || txt_password.getText().toString().isEmpty()) {
                             Toast.makeText( register_userinfo.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();
                         }
                        else if (!txt_nombre.getText().toString().isEmpty() || !txt_apellidos.getText().toString().isEmpty() || !txt_n_doc.getText().toString().isEmpty() || !txt_email_user.getText().toString().isEmpty() || !txt_password.getText().toString().isEmpty()) {
                             if ((txt_email_user.getText().toString()).matches(emailPattern)) {
-                                if (txt_password.getText().toString().equals(txt_re_password.getText().toString()) && (txt_password.getText().toString()).length() == 8) {
-                                    if  (bandera == true) {
-                                        Bundle extras = new Bundle();
-                                        extras.putString("nombre", txt_nombre.getText().toString());
-                                        extras.putString("apellido", txt_apellidos.getText().toString());
-                                        extras.putString("Tipo de documento", docselect.getSelectedItem().toString());
-                                        extras.putString("N de documento", txt_n_doc.getText().toString());
-                                        extras.putString("correo", txt_email_user.getText().toString());
-                                        extras.putString("contraseña", txt_password.getText().toString());
-                                        extras.putString("rol", roltest);
-                                        register_validar.putExtra("datos", extras);
-                                        startActivity(register_validar);
+                                if ((txt_nombre.getText().toString().matches(textPattern)) && (txt_apellidos.getText().toString()).matches(textPattern)) {
+                                    if (txt_password.getText().toString().trim().equals(txt_re_password.getText().toString().trim()) && (txt_password.getText().toString().trim()).length() == 8) {
+                                        if  (bandera == true) {
+                                            Bundle extras = new Bundle();
+                                            extras.putString("nombre", txt_nombre.getText().toString());
+                                            extras.putString("apellido", txt_apellidos.getText().toString());
+                                            extras.putString("Tipo de documento", docselect.getSelectedItem().toString());
+                                            extras.putString("N de documento", txt_n_doc.getText().toString());
+                                            extras.putString("correo", txt_email_user.getText().toString());
+                                            extras.putString("contraseña", txt_password.getText().toString());
+                                            extras.putString("rol", roltest);
+                                            register_validar.putExtra("datos", extras);
+                                            startActivity(register_validar);
+                                        }
+                                    }
+                                    else if ((txt_password.getText().toString().trim()).length() < 8 || (txt_password.getText().toString().trim()).length() > 8) {
+                                        Toast.makeText( register_userinfo.this,"La contraseña debe contener:"+"\r\n"+"Una longitud de 8 caracteres"+"\r\n"+"Sin espacios", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        Toast.makeText( register_userinfo.this,"Las contraseñas no son iguales", Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                else if ((txt_password.getText().toString()).length() < 8 || (txt_password.getText().toString()).length() > 8) {
-                                    Toast.makeText( register_userinfo.this,"La contraseña debe contener:"+"\r\n"+"Una longitud de 8 caracteres", Toast.LENGTH_LONG).show();
-                                }
-                                else {
-                                    Toast.makeText( register_userinfo.this,"Las contraseñas no son iguales", Toast.LENGTH_LONG).show();
+                                else  {
+                                    Toast.makeText(register_userinfo.this, "Los campos de nombre y apellido solo permite letras y espacios", Toast.LENGTH_LONG).show();
                                 }
                             }
                             else {

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usuario_condicion">
+    tools:context=".menu_consultaApr">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -57,51 +56,20 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/padre"
+            <TextView
+                android:id="@+id/textView28"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp" />
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Reportes"
+                android:textAlignment="center"
+                android:textSize="48sp"
+                android:textStyle="bold" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="match_parent" />
 
-                <Button
-                    android:id="@+id/btt_next_userinfo"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="#50B136"
-                    android:text="Usuario Info" />
-
-                <Button
-                    android:id="@+id/btt_next_rolinfo"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="#50B136"
-                    android:text="Info Rol" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btt_next_menu"
-                    android:layout_width="150dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="#50B136"
-                    android:text="Menu" />
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

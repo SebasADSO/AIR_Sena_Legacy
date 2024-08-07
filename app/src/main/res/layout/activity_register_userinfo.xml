@@ -160,8 +160,9 @@
                 android:background="@drawable/roundcorner"
                 android:backgroundTint="#ABD57B "
                 android:ems="10"
+                android:layout_weight="8"
                 android:hint="CONTRASEÑA"
-                android:inputType="textPassword"
+                android:inputType="text|textVisiblePassword"
                 android:paddingTop="14dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -182,8 +183,9 @@
                 android:background="@drawable/roundcorner"
                 android:backgroundTint="#ABD57B "
                 android:ems="10"
+                android:layout_weight="8"
                 android:hint="CONTRASEÑA"
-                android:inputType="textPassword"
+                android:inputType="text|textVisiblePassword"
                 android:paddingTop="14dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

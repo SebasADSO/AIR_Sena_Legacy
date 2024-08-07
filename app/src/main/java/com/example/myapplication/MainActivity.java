@@ -2,10 +2,13 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,13 +40,27 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         Button login = findViewById(R.id.bttlogin);
+        ImageButton show_pass = findViewById(R.id.btt_pass_show);
         ndoc = findViewById(R.id.ndoc);
         password = findViewById(R.id.password);
+        show_pass.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+                    case MotionEvent.ACTION_DOWN:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                }
+                return true;
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!ndoc.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty()) {
-                    login_user("http://10.201.131.12/AIR_Database/Login_usuario.php");
+                    login_user("http://192.168.43.143/AIR_Database/Login_usuario.php");
                 } else if (ndoc.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Los campos estan vacios", Toast.LENGTH_LONG).show();
                 }

@@ -33,7 +33,23 @@ public class register_condicion extends AppCompatActivity {
     String[] condiciones;
 
     private Spinner condicion_one, condicion_two, condicion_three, condicion_four, condicion_five;
-    private String[] discapacidad_list = {"Ninguna", "Discapacidad física", "Discapacidad auditiva", "Discapacidad visual", "Discapacidad intelectual", "Discapacidad psíquica"};
+    private String[] discapacidad_list = {"Ninguna",
+            "Movilidad reducida",
+            "Ceguera total",
+            "Baja visión",
+            "Daltonismo (deuteranopía, protanopía, tritanopía)",
+            "Hemianopsia",
+            "Nistagmo",
+            "Ambliopía (ojo vago)",
+            "Retinopatía diabética",
+            "Glaucoma",
+            "Parálisis cerebral",
+            "Lesión medular",
+            "Amputación",
+            "Distrofia muscular",
+            "Esclerosis múltiple",
+            "Artritis reumatoide",
+            "Enfermedad de Parkinson"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +78,7 @@ public class register_condicion extends AppCompatActivity {
                 validar.putExtra("user_id", user_id);
                 validar.putExtra("rol", user_rol);
                 for (int i = 0; i < condiciones.length; i++) {
-                    servicio("http://10.201.131.12/AIR_Database/register_condicion.php", i);
+                    servicio("http://192.168.43.143/AIR_Database/register_condicion.php", i);
                 }
                 validar.putExtra("user_id", user_id);
                 startActivity(validar);

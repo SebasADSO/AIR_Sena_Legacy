@@ -39,7 +39,7 @@ public class register_rolinfo extends AppCompatActivity {
 
     EditText txt_cod_program, txt_num_ficha, txt_nombre_programa;
     private Spinner jornadaSelect;
-    private String[] jornada = {"Mañana", "Tarde", "Nocturna", "Diurna"};
+    private String[] jornada = {"Tarde", "Manana", "Nocturna", "Diurna"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,6 +58,7 @@ public class register_rolinfo extends AppCompatActivity {
         jornadaSelect.setAdapter(selector);
         txt_cod_program = findViewById(R.id.txt_cod_program);
         txt_num_ficha = findViewById(R.id.txt_num_ficha);
+        String textPattern = "\"[a-zA-Z ]+\"";
         txt_nombre_programa = findViewById(R.id.txt_nombre_programa);
         Button siguiente = findViewById(R.id.btt_next_condicion);
         siguiente.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,12 @@ public class register_rolinfo extends AppCompatActivity {
                     Toast.makeText( register_rolinfo.this,"Debe llenar seleccionar las fechas solicitadas", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    servicio("http://10.201.131.12/AIR_Database/register_aprendiz.php");
+                    if ((txt_nombre_programa.getText().toString().matches(textPattern))) {
+                        servicio("http://192.168.43.143/AIR_Database/register_aprendiz.php");
+                    }
+                    else {
+                        Toast.makeText(register_rolinfo.this, "Solo se permite letras y espacios en el nombre del programa", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

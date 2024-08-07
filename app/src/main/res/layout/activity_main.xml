@@ -106,20 +106,37 @@
                 android:layout_marginBottom="10dp"
                 android:text="Contraseña" />
 
-            <EditText
-                android:id="@+id/password"
-                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
-                android:layout_width="294dp"
-                android:layout_height="53dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/roundcorner"
-                android:backgroundTint="#ABD57B"
-                android:ems="10"
-                android:hint="CONTRASEÑA"
-                android:hyphenationFrequency="normal"
-                android:inputType="textPassword"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/password"
+                    style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="244dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="8"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B"
+                    android:ems="10"
+                    android:hint="CONTRASEÑA"
+                    android:hyphenationFrequency="normal"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/btt_pass_show"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@android:drawable/ic_menu_view"
+                    app:tint="#000000" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/bttlogin"

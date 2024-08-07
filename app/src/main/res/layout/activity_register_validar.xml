@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
                 android:gravity="center"
-                android:text="Correo Electronico" />
+                android:text="No disponible" />
 
             <EditText
                 android:id="@+id/txt_email_user"
@@ -195,7 +195,7 @@
                 android:background="#ABD57B"
                 android:ems="10"
                 android:enabled="false"
-                android:hint="CORREO ELECTRONICO"
+                android:hint="No disponible"
                 android:inputType="textEmailAddress"
                 android:paddingTop="14dp" />
 
@@ -205,7 +205,7 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="#50B136"
-                android:text="Cambiar" />
+                android:text="No disponible" />
 
         </LinearLayout>
     </ScrollView>

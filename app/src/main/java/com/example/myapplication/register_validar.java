@@ -68,7 +68,7 @@ public class register_validar extends AppCompatActivity {
                 code += code_one.getText().toString() + code_two.getText().toString() + code_three.getText().toString() + code_four.getText().toString() + code_five.getText().toString() + code_six.getText().toString();
                 Intent intent = new Intent(register_validar.this, register_succes.class);
                 if (cod_verificar.equals(code)) {
-                    servicio("http://10.201.131.12/AIR_Database/activar_user.php");
+                    servicio("http://192.168.43.143/AIR_Database/activar_user.php");
                     startActivity(intent);
                 }
                 else {

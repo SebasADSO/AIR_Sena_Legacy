@@ -18,11 +18,14 @@ public class recover_password_02 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_recover_password02);
+        Bundle extras = this.getIntent().getExtras();
+        String email = extras.getString("email");
         Button home = findViewById(R.id.btt_recover_home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(recover_password_02.this, MainActivity.class);
+                Intent home = new Intent(recover_password_02.this, recover_password_03.class);
+                home.putExtra("email", email);
                 startActivity(home);
             }
         });

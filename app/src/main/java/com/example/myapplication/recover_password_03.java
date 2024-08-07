@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class recover_password_03 extends AppCompatActivity {
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+import java.util.Map;
+
+public class recover_password_03 extends AppCompatActivity {
+    String email;
     EditText password, password_confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +35,17 @@ public class recover_password_03 extends AppCompatActivity {
         setContentView(R.layout.activity_recover_password03);
         password = findViewById(R.id.txt_password);
         password_confirm = findViewById(R.id.txt_password_confirm);
-        String parser_pass = password.getText().toString();
-        String parser_pass_valid = password_confirm.getText().toString();
+        Bundle extras = this.getIntent().getExtras();
+        email = extras.getString("email");
         Button cambiar = findViewById(R.id.btt_recover_cambiar);
         cambiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (parser_pass.isEmpty() || parser_pass_valid.isEmpty()) {
+                if (password.getText().toString().isEmpty() || password_confirm.getText().toString().isEmpty()) {
                     Toast.makeText( recover_password_03.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();
                 }
-                else if (parser_pass.equals(parser_pass_valid)) {
+                else if ((password.getText().toString()).equals(password_confirm.getText().toString())) {
+                    servicio("http://192.168.43.143/AIR_Database/recover_pass.php");
                     Intent pass_04 = new Intent(recover_password_03.this, recover_password_04.class);
                     startActivity(pass_04);
                 }
@@ -46,5 +59,31 @@ public class recover_password_03 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    private  void servicio(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                Toast.makeText(getApplicationContext(), "La contraseña a sido cambiada", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getApplicationContext(), "Error: Conexión perdida", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("email_usuario", email);
+                parametros.put("pass_user", password.getText().toString());
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
