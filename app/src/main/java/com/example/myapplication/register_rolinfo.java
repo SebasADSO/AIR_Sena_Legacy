@@ -58,7 +58,7 @@ public class register_rolinfo extends AppCompatActivity {
         jornadaSelect.setAdapter(selector);
         txt_cod_program = findViewById(R.id.txt_cod_program);
         txt_num_ficha = findViewById(R.id.txt_num_ficha);
-        String textPattern = "\"[a-zA-Z ]+\"";
+        String textPattern = "[a-zA-Z ]+";
         txt_nombre_programa = findViewById(R.id.txt_nombre_programa);
         Button siguiente = findViewById(R.id.btt_next_condicion);
         siguiente.setOnClickListener(new View.OnClickListener() {

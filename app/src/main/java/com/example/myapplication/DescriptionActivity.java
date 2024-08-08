@@ -4,8 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,82 +20,68 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class menu_home extends AppCompatActivity {
-
+public class DescriptionActivity extends AppCompatActivity {
     RequestQueue requestQueue;
 
-    TextView txt_mensaje;
-
-    String ndoc, rol;
-
-    ImageButton btt_reportar, btt_consultar, btt_usuario, btt_config;
+TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;
+ImageView soporte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_menu_home);
-        txt_mensaje = findViewById(R.id.txt_mensaje);
-        txt_mensaje.setText("Bienvenid@");
+        setContentView(R.layout.activity_description);
+        ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        id_reporte = findViewById(R.id.txt_id_reporte);
+        cod_usuario = findViewById(R.id.txt_cod_usuario);
+        encabezado = findViewById(R.id.txt_encabezado);
+        descripcion = findViewById(R.id.txt_desc);
+        ubicacion = findViewById(R.id.txt_lugar);
+        fecha_hora = findViewById(R.id.txt_fecha);
+        soporte = findViewById(R.id.soporte);
+        txt_tipo_peligro = findViewById(R.id.txt_tipo_peligro);
+        txt_nivel_peligro = findViewById(R.id.txt_nivel_peligro);
+        txt_estado = findViewById(R.id.txt_estado);
+        txt_fecha_revision = findViewById(R.id.txt_fecha_revision);
+
         ImageButton logout = findViewById(R.id.btt_logout);
-        btt_reportar = findViewById(R.id.btt_reportar);
-        btt_consultar = findViewById(R.id.btt_consultar);
-        btt_usuario = findViewById(R.id.btt_usuario);
-        btt_config = findViewById(R.id.btt_config);
-        Bundle extras = this.getIntent().getExtras();
-        ndoc = extras.getString("doc");
-        buscarol("http://192.168.43.143/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
-        btt_reportar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reportar = new Intent(menu_home.this, menu_reportar.class);
-                reportar.putExtra("doc", ndoc);
-                startActivity(reportar);
-            }
-        });
-        btt_consultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent consulta = new Intent(menu_home.this, menu_consultaApr.class);
-                consulta.putExtra("rol", rol);
-                consulta.putExtra("doc", ndoc);
-                startActivity(consulta);
-            }
-        });
-        btt_usuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent user = new Intent(menu_home.this, Menu_usuario.class);
-                user.putExtra("doc", ndoc);
-                startActivity(user);
-            }
-        });
-        btt_config.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent config = new Intent(menu_home.this, Menu_config.class);
-                startActivity(config);
-            }
-        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent menu_home_back = new Intent(menu_home.this, MainActivity.class);
+                Intent menu_home_back = new Intent(DescriptionActivity.this, MainActivity.class);
                 startActivity(menu_home_back);
                 finishAffinity();
             }
         });
+
+        id_reporte.setText(element.getId_reporte());
+        cod_usuario.setText(element.getCod_usuario_fk());
+        encabezado.setText(element.getEncabezado_reporte());
+        descripcion.setText(element.getDescripcion_reporte());
+        ubicacion.setText(element.getUbicacion());
+        fecha_hora.setText(element.getFecha_hora_reporte());
+
+        estado("http://192.168.43.143/AIR_Database/consulta_estado.php?id_reporte="+element.getId_reporte()+"");
+
+        String link = element.getSoporte_reporte().replace("localhost", "192.168.43.143");
+
+        Picasso.get()
+                .load(link)
+                .into(soporte);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
-    private void buscarol(String URL) {
+    private void estado(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -105,7 +91,10 @@ public class menu_home extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
-                        rol = jsonObject.getString("rol_user");
+                        txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro "));
+                        txt_tipo_peligro.setText(jsonObject.getString("tipo_peligro"));
+                        txt_estado.setText(jsonObject.getString("estado"));
+                        txt_fecha_revision.setText(jsonObject.getString("fecha_revision"));
                     } catch (JSONException e) {
                         loading.dismiss();
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

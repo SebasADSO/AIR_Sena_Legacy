@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Random;
@@ -132,11 +133,8 @@ public class menu_reportar extends AppCompatActivity {
                     public void onResponse(String response) {
                         loading.dismiss();
                         Log.d("datos", cod_user + "---"+ ndoc);
+                        revision("http://192.168.43.143/AIR_Database/revision_inicial.php");
                         Toast.makeText(menu_reportar.this, response, Toast.LENGTH_LONG).show();
-                        Intent camera = new Intent(menu_reportar.this, reportar_camera.class);
-                        camera.putExtra("doc", ndoc);
-                        startActivity(camera);
-                        finishAffinity();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -209,5 +207,38 @@ public class menu_reportar extends AppCompatActivity {
         );
         requestQueue=Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+    private  void revision(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+                Intent camera = new Intent(menu_reportar.this, reportar_camera.class);
+                camera.putExtra("doc", ndoc);
+                startActivity(camera);
+                finishAffinity();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                loading.dismiss();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("id_reporte_fk", report_id);
+                parametros.put("tipo_peligro", "DESCONOCIDO");
+                parametros.put("nivel_peligro", "DESCONOCIDO");
+                parametros.put("fecha_revision", "0000-00-00 00:00:00");
+                parametros.put("estado", "PENDIENTE");
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
