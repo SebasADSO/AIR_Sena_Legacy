@@ -27,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Menu_usuario extends AppCompatActivity {
+    String ip = "192.168.43.143";
+    String change = "localhost";
     RequestQueue requestQueue;
     private TextView txt_nombre, txt_apellidos, txt_email_user, txt_n_doc , docselect;
     String ndoc, rol;
@@ -71,7 +73,7 @@ public class Menu_usuario extends AppCompatActivity {
                 startActivity(condicion);
             }
         });
-        buscarol("http://192.168.43.143/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
+        buscarol("http://localhost/AIR_Database/userinfo_buscarrol.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +108,7 @@ public class Menu_usuario extends AppCompatActivity {
                 finishAffinity();
             }
         });
-        buscarid("http://192.168.43.143/AIR_Database/userinfo_datauser.php?cedula_usuario="+ndoc+"");
+        buscarid("http://localhost/AIR_Database/userinfo_datauser.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -40,6 +40,9 @@ public class register_validar extends AppCompatActivity {
 
     EditText code_one, code_two, code_three, code_four, code_five, code_six;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     String code = "", user_rol, user_id, cod_verificar, estado = "";
 
     int cod_verificar_base;
@@ -68,7 +71,7 @@ public class register_validar extends AppCompatActivity {
                 code += code_one.getText().toString() + code_two.getText().toString() + code_three.getText().toString() + code_four.getText().toString() + code_five.getText().toString() + code_six.getText().toString();
                 Intent intent = new Intent(register_validar.this, register_succes.class);
                 if (cod_verificar.equals(code)) {
-                    servicio("http://192.168.43.143/AIR_Database/activar_user.php");
+                    servicio("http://localhost/AIR_Database/activar_user.php".replace(change, ip));
                     startActivity(intent);
                 }
                 else {

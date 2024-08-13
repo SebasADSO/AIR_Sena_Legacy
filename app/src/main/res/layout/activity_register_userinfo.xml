@@ -151,20 +151,35 @@
                 android:text="CONTRASEÑA"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/txt_password_user"
-                style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                android:layout_width="344dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/roundcorner"
-                android:backgroundTint="#ABD57B "
-                android:ems="10"
-                android:layout_weight="8"
-                android:hint="CONTRASEÑA"
-                android:inputType="text|textVisiblePassword"
-                android:paddingTop="14dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txt_password_user"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="295dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B "
+                    android:ems="10"
+                    android:hint="CONTRASEÑA"
+                    android:maxLength="8"
+                    android:inputType="textPassword"
+                    android:paddingTop="14dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                <ImageButton
+                    android:id="@+id/btt_pass_show"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@android:drawable/ic_menu_view"
+                    app:tint="#000000" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView8"
@@ -174,20 +189,37 @@
                 android:text="CONFIRMA CONTRASEÑA"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/txt_password_user_confirm"
-                style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                android:layout_width="344dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/roundcorner"
-                android:backgroundTint="#ABD57B "
-                android:ems="10"
-                android:layout_weight="8"
-                android:hint="CONTRASEÑA"
-                android:inputType="text|textVisiblePassword"
-                android:paddingTop="14dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txt_password_user_confirm"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="295dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/roundcorner"
+                    android:backgroundTint="#ABD57B "
+                    android:ems="10"
+                    android:hint="CONTRASEÑA"
+                    android:inputType="textPassword"
+                    android:maxLength="8"
+                    android:paddingTop="14dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/btt_pass_show2"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:backgroundTint="#FFFFFF"
+                    app:srcCompat="@android:drawable/ic_menu_view"
+                    app:tint="#000000"
+                    tools:ignore="DuplicateIds" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btt_next_register"

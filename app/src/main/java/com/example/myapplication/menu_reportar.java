@@ -59,6 +59,9 @@ public class menu_reportar extends AppCompatActivity {
     RequestQueue requestQueue;
     EditText txt_suceso, txt_descrpcion, txt_lugar;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     Button btt_siguiente;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +102,14 @@ public class menu_reportar extends AppCompatActivity {
         btt_siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buscarid("http://192.168.43.143/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
+                buscarid("http://localhost/AIR_Database/reportar_buscarid.php?cedula_usuario=".replace(change, ip)+ndoc+"");
                 if (cod_user != null) {
                     //Toast.makeText(getApplicationContext(), cod_user, Toast.LENGTH_SHORT).show();
-                    uploadImage("http://192.168.43.143/AIR_Database/reportar_upload.php");
+                    uploadImage("http://localhost/AIR_Database/reportar_upload.php".replace(change, ip));
                 }
                 else {
-                    buscarid("http://192.168.43.143/AIR_Database/reportar_buscarid.php?cedula_usuario="+ndoc+"");
+                    Toast.makeText(getApplicationContext(), "Vuelva a intentarlo", Toast.LENGTH_LONG).show();
+                    buscarid("http://localhost/AIR_Database/reportar_buscarid.php?cedula_usuario=".replace(change, ip)+ndoc+"");
                 }
             }
         });

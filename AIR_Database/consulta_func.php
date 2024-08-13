@@ -2,9 +2,7 @@
 
 include 'conexion.php';
 
-$id_reporte=$_GET['id_reporte'];
-
-$consulta = ("SELECT * FROM tb_revision WHERE id_reporte_fk = '$id_reporte'");
+$consulta = ("SELECT * FROM tb_reporte WHERE 1 ORDER BY fecha_hora_reporte DESC");
 
 $resultado = $conexion -> query($consulta);
 

@@ -30,6 +30,9 @@ public class register_condicion extends AppCompatActivity {
 
     String user_rol, user_id, estado = "";
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     String[] condiciones;
 
     private Spinner condicion_one, condicion_two, condicion_three, condicion_four, condicion_five;
@@ -78,7 +81,7 @@ public class register_condicion extends AppCompatActivity {
                 validar.putExtra("user_id", user_id);
                 validar.putExtra("rol", user_rol);
                 for (int i = 0; i < condiciones.length; i++) {
-                    servicio("http://192.168.43.143/AIR_Database/register_condicion.php", i);
+                    servicio("http://localhost/AIR_Database/register_condicion.php".replace(change, ip), i);
                 }
                 validar.putExtra("user_id", user_id);
                 startActivity(validar);

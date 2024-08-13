@@ -123,6 +123,7 @@
                     android:backgroundTint="#ABD57B"
                     android:ems="10"
                     android:hint="CONTRASEÑA"
+                    android:maxLength="8"
                     android:hyphenationFrequency="normal"
                     android:inputType="textPassword"
                     android:textAlignment="center"

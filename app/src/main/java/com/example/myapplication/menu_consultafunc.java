@@ -40,11 +40,13 @@ import java.util.List;
 import java.util.Map;
 
 public class menu_consultafunc extends AppCompatActivity {
+    String ip = "192.168.43.143";
+    String change = "localhost";
     RequestQueue requestQueue;
     TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_estado, txt_fecha_revision;
     EditText txt_nivel_peligro, txt_tipo_peligro;
     ImageView soporte;
-    String fecha;
+    String fecha, id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class menu_consultafunc extends AppCompatActivity {
             }
         });
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        id = element.getId_reporte();
         id_reporte = findViewById(R.id.txt_id_reporte);
         cod_usuario = findViewById(R.id.txt_cod_usuario);
         encabezado = findViewById(R.id.txt_encabezado);
@@ -91,13 +94,11 @@ public class menu_consultafunc extends AppCompatActivity {
         ubicacion.setText(element.getUbicacion());
         fecha_hora.setText(element.getFecha_hora_reporte());
 
-        String id = element.getId_reporte();
-
         Toast.makeText(menu_consultafunc.this, id, Toast.LENGTH_SHORT).show();
 
-        estado("http://192.168.43.143/AIR_Database/consulta_estado.php?id_reporte="+id+"");
+        estado("http://localhost/AIR_Database/consulta_estado.php?id_reporte=".replace(change, ip)+id.replace("ID:", "")+"");
 
-        String link = element.getSoporte_reporte().replace("localhost", "192.168.43.143");
+        String link = element.getSoporte_reporte().replace(change, ip);
 
         Picasso.get()
                 .load(link)
@@ -107,7 +108,7 @@ public class menu_consultafunc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (txt_tipo_peligro.getText().toString().matches(textPattern) && txt_nivel_peligro.getText().toString().matches(textPattern)) {
-                    revisar("http://192.168.43.143/AIR_Database/revision_update.php?id_reporte_fk="+id+"");
+                    revisar("http://localhost/AIR_Database/revision_update.php?id_reporte_fk=".replace(change, ip)+id.replace("ID:", "")+"");
                 }
                 else {
                     Toast.makeText(menu_consultafunc.this, "Solo se permite letras en los campos", Toast.LENGTH_LONG).show();
@@ -130,10 +131,10 @@ public class menu_consultafunc extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
-                        txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro"));
                         txt_tipo_peligro.setText(jsonObject.getString("tipo_peligro"));
-                        txt_estado.setText(jsonObject.getString("estado"));
+                        txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro"));
                         txt_fecha_revision.setText(jsonObject.getString("fecha_revision"));
+                        txt_estado.setText(jsonObject.getString("estado"));
                     } catch (JSONException e) {
                         loading.dismiss();
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

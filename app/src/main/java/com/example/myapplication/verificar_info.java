@@ -30,6 +30,9 @@ public class verificar_info extends AppCompatActivity {
 
     TextView name, last, td, ndoc, email, rol, terminos;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     Button crear;
 
     String estado = "";
@@ -74,7 +77,7 @@ public class verificar_info extends AppCompatActivity {
             public void onClick(View view) {
                 Intent Instructor_Funcionario = new Intent(verificar_info.this, register_rolinfo2.class);
                 Intent Aprendiz = new Intent(verificar_info.this, register_rolinfo.class);
-                servicio("http://192.168.43.143/AIR_Database/register_userinfo.php");
+                servicio("http://localhost/AIR_Database/register_userinfo.php".replace(change, ip));
                 switch (user_rol) {
                     case "aprendiz":
                         if (estado.equals("Correct")) {

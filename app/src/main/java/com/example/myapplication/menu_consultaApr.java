@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class menu_consultaApr extends AppCompatActivity {
+    String ip = "192.168.43.143";
+    String change = "localhost";
     RequestQueue requestQueue;
     String ndoc, rol;
     List<ListElement> elements;
@@ -51,7 +53,17 @@ public class menu_consultaApr extends AppCompatActivity {
                 finishAffinity();
             }
         });
-        consultas("http://192.168.43.143/AIR_Database/consultas_apr.php?cedula_usuario="+ndoc+"");
+        switch (rol) {
+            case "aprendiz":
+                consultas("http://localhost/AIR_Database/consultas_apr.php?cedula_usuario=".replace(change, ip)+ndoc+"");
+                break;
+            case "instructor":
+                consultas("http://localhost/AIR_Database/consultas_apr.php?cedula_usuario=".replace(change, ip)+ndoc+"");
+                break;
+            case "funcionario":
+                consultas("http://localhost/AIR_Database/consulta_func.php".replace(change, ip));
+                break;
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

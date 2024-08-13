@@ -28,6 +28,8 @@ import java.util.Map;
 public class recover_password_03 extends AppCompatActivity {
     String email;
     EditText password, password_confirm;
+    String ip = "192.168.43.143";
+    String change = "localhost";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class recover_password_03 extends AppCompatActivity {
                     Toast.makeText( recover_password_03.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();
                 }
                 else if ((password.getText().toString()).equals(password_confirm.getText().toString())) {
-                    servicio("http://192.168.43.143/AIR_Database/recover_pass.php");
+                    servicio("http://localhost/AIR_Database/recover_pass.php".replace(change, ip));
                     Intent pass_04 = new Intent(recover_password_03.this, recover_password_04.class);
                     startActivity(pass_04);
                 }

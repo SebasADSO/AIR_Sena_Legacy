@@ -35,6 +35,9 @@ import java.util.Map;
 public class register_rolinfo extends AppCompatActivity {
     TextView fecha1, fecha2, fecha3;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     String fechaI, fechaF, fechaP, estado = "", user_id, user_rol;
 
     EditText txt_cod_program, txt_num_ficha, txt_nombre_programa;
@@ -72,7 +75,7 @@ public class register_rolinfo extends AppCompatActivity {
                 }
                 else {
                     if ((txt_nombre_programa.getText().toString().matches(textPattern))) {
-                        servicio("http://192.168.43.143/AIR_Database/register_aprendiz.php");
+                        servicio("http://localhost/AIR_Database/register_aprendiz.php".replace(change, ip));
                     }
                     else {
                         Toast.makeText(register_rolinfo.this, "Solo se permite letras y espacios en el nombre del programa", Toast.LENGTH_LONG).show();

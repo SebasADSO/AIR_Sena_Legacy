@@ -3,10 +3,13 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,6 +33,9 @@ import java.util.Map;
 
 public class register_userinfo extends AppCompatActivity {
     private Spinner docselect;
+
+    String ip = "192.168.43.143";
+    String change = "localhost";
 
     Boolean bandera = false;
 
@@ -57,10 +63,37 @@ public class register_userinfo extends AppCompatActivity {
         Button inforol = findViewById(R.id.btt_next_register);
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String textPattern = "[a-zA-Z ]+";
+        ImageButton show_pass = findViewById(R.id.btt_pass_show);
+        show_pass.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+                    case MotionEvent.ACTION_DOWN:
+                        txt_password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        txt_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                }
+                return true;
+            }
+        });ImageButton show_pass2 = findViewById(R.id.btt_pass_show2);
+        show_pass2.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch ( event.getAction() ) {
+                    case MotionEvent.ACTION_DOWN:
+                        txt_re_password.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        txt_re_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                }
+                return true;
+            }
+        });
         inforol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comprobar_user("http://192.168.43.143/AIR_Database/register_comprobar.php");
+                comprobar_user("http://localhost/AIR_Database/register_comprobar.php".replace(change, ip));
                 Intent register_validar=new Intent(register_userinfo.this, verificar_info.class);
                         if(txt_nombre.getText().toString().isEmpty() || txt_apellidos.getText().toString().isEmpty() || txt_n_doc.getText().toString().isEmpty() || txt_email_user.getText().toString().isEmpty() || txt_password.getText().toString().isEmpty()) {
                             Toast.makeText( register_userinfo.this,"No puede dejar campos vacios", Toast.LENGTH_LONG).show();

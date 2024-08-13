@@ -33,6 +33,9 @@ public class register_rolinfo2 extends AppCompatActivity {
 
     EditText txt_cargo_register;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     CheckBox cb_lunes, cb_martes, cb_miercoles, cb_jueves, cb_viernes, cb_sabado;
 
     String user_id, user_rol, estado = "", dias = "";
@@ -70,7 +73,7 @@ public class register_rolinfo2 extends AppCompatActivity {
                 else if (dias.length() < 3) {
                     Toast.makeText( register_rolinfo2.this,"Debe llenar seleccionar al menos un dia", Toast.LENGTH_LONG).show();
                 }else {
-                    servicio("http://192.168.43.143/AIR_Database/register_instruc_func.php");
+                    servicio("http://localhost/AIR_Database/register_instruc_func.php".replace(change, ip));
                 }
             }
         });

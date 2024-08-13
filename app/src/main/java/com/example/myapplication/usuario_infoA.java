@@ -27,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_infoA extends AppCompatActivity {
+    String ip = "192.168.43.143";
+    String change = "localhost";
     RequestQueue requestQueue;
     String ndoc;
     TextView txt_cod_program, txt_num_ficha, txt_nombre_programa, fecha1, fecha2, fecha3, jornadaview;
@@ -82,7 +84,7 @@ public class usuario_infoA extends AppCompatActivity {
                 finishAffinity();
             }
         });
-        buscarrol("http://192.168.43.143/AIR_Database/userinfo_rolaprendiz.php?cedula_usuario="+ndoc+"");
+        buscarrol("http://localhost/AIR_Database/userinfo_rolaprendiz.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

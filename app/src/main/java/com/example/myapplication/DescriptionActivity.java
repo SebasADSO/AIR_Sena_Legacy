@@ -29,7 +29,9 @@ import org.json.JSONObject;
 
 public class DescriptionActivity extends AppCompatActivity {
     RequestQueue requestQueue;
-
+    String ip = "192.168.43.143";
+    String change = "localhost";
+String id;
 TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;
 ImageView soporte;
     @Override
@@ -38,6 +40,7 @@ ImageView soporte;
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_description);
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        id = element.getId_reporte();
         id_reporte = findViewById(R.id.txt_id_reporte);
         cod_usuario = findViewById(R.id.txt_cod_usuario);
         encabezado = findViewById(R.id.txt_encabezado);
@@ -67,7 +70,11 @@ ImageView soporte;
         ubicacion.setText(element.getUbicacion());
         fecha_hora.setText(element.getFecha_hora_reporte());
 
-        estado("http://192.168.43.143/AIR_Database/consulta_estado.php?id_reporte="+element.getId_reporte()+"");
+
+
+        Toast.makeText(DescriptionActivity.this, id, Toast.LENGTH_SHORT).show();
+
+        estado("http://localhost/AIR_Database/consulta_estado.php?id_reporte=".replace(change, ip)+id.replace("ID:", "")+"");
 
         String link = element.getSoporte_reporte().replace("localhost", "192.168.43.143");
 
@@ -91,10 +98,10 @@ ImageView soporte;
                     try {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
-                        txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro "));
                         txt_tipo_peligro.setText(jsonObject.getString("tipo_peligro"));
-                        txt_estado.setText(jsonObject.getString("estado"));
+                        txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro"));
                         txt_fecha_revision.setText(jsonObject.getString("fecha_revision"));
+                        txt_estado.setText(jsonObject.getString("estado"));
                     } catch (JSONException e) {
                         loading.dismiss();
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

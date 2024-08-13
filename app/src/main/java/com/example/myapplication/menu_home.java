@@ -29,6 +29,9 @@ public class menu_home extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
+    String ip = "192.168.43.143";
+    String change = "localhost";
+
     TextView txt_mensaje;
 
     String ndoc, rol;
@@ -48,7 +51,7 @@ public class menu_home extends AppCompatActivity {
         btt_config = findViewById(R.id.btt_config);
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
-        buscarol("http://192.168.43.143/AIR_Database/userinfo_buscarrol.php?cedula_usuario="+ndoc+"");
+        buscarol("http://localhost/AIR_Database/userinfo_buscarrol.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         btt_reportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
