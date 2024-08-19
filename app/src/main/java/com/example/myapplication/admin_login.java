@@ -1,9 +1,6 @@
 package com.example.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -17,10 +14,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -36,18 +30,19 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class admin_login extends AppCompatActivity {
+
     String ip = "192.168.43.143";
     String change = "localhost";
     EditText ndoc, password;
-private Spinner docselect;
-private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "Cedula de Extranjeria", "PEP", "Permiso por protección Temporal"};
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    private Spinner docselect;
+    private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "Cedula de Extranjeria", "PEP", "Permiso por protección Temporal"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin_login);
         Button login = findViewById(R.id.bttlogin);
         // Llamar los botones de la vista MainActivity
         ImageButton show_pass = findViewById(R.id.btt_pass_show);
@@ -62,7 +57,7 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
                     case MotionEvent.ACTION_DOWN:
                         password.setInputType(InputType.TYPE_CLASS_TEXT);
                         break;
-                        // Si ele boton deja de oprimirse se cambia de text a textpassword
+                    // Si ele boton deja de oprimirse se cambia de text a textpassword
                     case MotionEvent.ACTION_UP:
                         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         break;
@@ -74,63 +69,38 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
             @Override
             public void onClick(View view) {
                 if (!ndoc.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty()) {
-                    login_user("http://localhost/AIR_Database/Login_usuario.php".replace(change, ip));
+                    login_admin("http://localhost/AIR_Database/Login_admin.php".replace(change, ip));
                 } else if (ndoc.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Los campos estan vacios", Toast.LENGTH_LONG).show();
+                    Toast.makeText(admin_login.this, "Los campos estan vacios", Toast.LENGTH_LONG).show();
                 }
             }
         });
-        requestPermissions();
         docselect = findViewById(R.id.docselect);
-        ArrayAdapter<String>selector=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, documentos);
+        ArrayAdapter<String> selector=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, documentos);
         docselect.setAdapter(selector);
-        Button register = findViewById(R.id.bttregister);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent register_pag=new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(register_pag);
-            }
-        });
-        Button recover = findViewById(R.id.bttrecover);
-        recover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent recover_pag=new Intent(MainActivity.this, recover_password_01.class);
-                startActivity(recover_pag);
-            }
-        });
-        Button admin = findViewById(R.id.bttadmin);
-        admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent4 = new Intent(MainActivity.this, admin_login.class);
-                startActivity(intent4);
-            }
-        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
-    private  void login_user(String URL) {
+    private  void login_admin(String URL) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(!response.isEmpty()){
-                    Intent login = new Intent(MainActivity.this, menu_home.class);
+                    Intent login = new Intent(admin_login.this, admin_usermanegre.class);
                     login.putExtra("doc", ndoc.getText().toString());
                     startActivity(login);
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
+                    Toast.makeText(admin_login.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "El usuario no existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(admin_login.this, "El usuario no existe", Toast.LENGTH_LONG).show();
             }
         }){
             @Nullable
@@ -145,26 +115,5 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
-    final int REQUEST_PERMISSION_CODE = 1;
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
-    private void requestPermissions() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_MEDIA_IMAGES, android.Manifest.permission.CAMERA, android.Manifest.permission.POST_NOTIFICATIONS}, REQUEST_PERMISSION_CODE);
-        }
-    }
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getApplicationContext(), "La app puede funcionar correctamente", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "La app necesita todos los permisos para funcionar correctamente", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

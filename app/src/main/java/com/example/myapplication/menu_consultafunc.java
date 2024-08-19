@@ -46,7 +46,7 @@ public class menu_consultafunc extends AppCompatActivity {
     TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_estado, txt_fecha_revision;
     EditText txt_nivel_peligro, txt_tipo_peligro;
     ImageView soporte;
-    String fecha, id;
+    String fecha, id, ndoc, cod_re;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +62,8 @@ public class menu_consultafunc extends AppCompatActivity {
             }
         });
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        Bundle extras = getIntent().getExtras();
+        ndoc = extras.getString("doc");
         id = element.getId_reporte();
         id_reporte = findViewById(R.id.txt_id_reporte);
         cod_usuario = findViewById(R.id.txt_cod_usuario);
@@ -95,6 +97,7 @@ public class menu_consultafunc extends AppCompatActivity {
         fecha_hora.setText(element.getFecha_hora_reporte());
 
         Toast.makeText(menu_consultafunc.this, id, Toast.LENGTH_SHORT).show();
+        buscarid("http://localhost/AIR_Database/userinfo_datauser.php?cedula_usuario=".replace(change, ip)+ndoc+"");
 
         estado("http://localhost/AIR_Database/consulta_estado.php?id_reporte=".replace(change, ip)+id.replace("ID:", "")+"");
 
@@ -174,10 +177,39 @@ public class menu_consultafunc extends AppCompatActivity {
                 parametros.put("nivel_peligro", txt_nivel_peligro.getText().toString());
                 parametros.put("fecha_revision", fecha);
                 parametros.put("estado", "REVISADO");
+                parametros.put("cod_usuario_fk", cod_re);
                 return parametros;
             }
         };
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+    private void buscarid(String URL) {
+        final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        loading.dismiss();
+                        cod_re = jsonObject.getString("cod_usuario");
+                    } catch (JSONException e) {
+                        loading.dismiss();
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
     }
 }

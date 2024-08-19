@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-08-2024 a las 03:18:47
+-- Tiempo de generación: 19-08-2024 a las 01:46:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -56,7 +56,12 @@ INSERT INTO `tb_condicion_usua` (`cod_usuario_fk`, `condicion_usuario`) VALUES
 (40, 'Ninguna'),
 (40, 'Ninguna'),
 (40, 'Daltonismo (deuteranopía, protanopía, tritanopía)'),
-(40, 'Ninguna');
+(40, 'Ninguna'),
+(190, 'Ninguna'),
+(190, 'Ninguna'),
+(190, 'Ninguna'),
+(190, 'Baja visión'),
+(190, 'Ninguna');
 
 -- --------------------------------------------------------
 
@@ -102,7 +107,8 @@ CREATE TABLE `tb_programayficha` (
 
 INSERT INTO `tb_programayficha` (`cod_usuario_fk`, `cod_programa`, `numero_ficha`, `nombre_programa`, `jornada_programa`, `fecha_inicio`, `fecha_final`, `inicio_produc`) VALUES
 (96, 2333311, 2673125, 'ADSO', '', '0000-00-00', '0000-00-00', '0000-00-00'),
-(40, 877841, 798465, 'ADSO', 'Nocturna', '2024-08-13', '2024-08-13', '2024-08-13');
+(40, 877841, 798465, 'ADSO', 'Nocturna', '2024-08-13', '2024-08-13', '2024-08-13'),
+(190, 3213223, 123123, 'ADSO', 'Manana', '2024-08-14', '2024-08-14', '2024-08-14');
 
 -- --------------------------------------------------------
 
@@ -125,9 +131,12 @@ CREATE TABLE `tb_reporte` (
 --
 
 INSERT INTO `tb_reporte` (`id_reporte`, `cod_usuario_fk`, `encabezado_reporte`, `descripcion_reporte`, `ubicacion`, `fecha_hora_reporte`, `soporte_reporte`) VALUES
+(360, 190, 'Auida', 'Prueba de reporte', 'SENA', '2024-08-14 12:58:07', 'http://localhost/AIR_Database/img/360.png'),
 (412, 40, 'Se cayo el porton', 'Jesse se cayo el porton', 'Sena CIMI', '2024-08-13 17:13:25', 'http://localhost/AIR_Database/img/412.png'),
+(568, 40, 'we', 'we', 'we', '2024-08-16 13:52:05', 'http://localhost/AIR_Database/img/568.png'),
 (592, 96, 'Gotera cerca toma corriente', 'Hay una gotera en el techo que da contacto directo a un toma corriente', 'Fabrica de Sotfware', '2024-08-08 12:54:23', 'http://localhost/AIR_Database/img/592.png'),
 (650, 623, 'Prueba', 'Me quieren agitar\nMe incitan a gritar\nSoy como una roca\nPalabras no me tocan\nAdentro hay un volcán\nQue pronto va a estallar\nYo quiero estar tranquilo\nEs mi situación\nUna desolación\nSoy como un lamento\nLamento boliviano\nQue un día empezó\nY no va a terminar\nY a nadie hace daño', 'CIMI', '2024-08-13 06:55:12', 'http://localhost/AIR_Database/img/650.png'),
+(709, 40, 'Panal de abejas', 'Hay un panal de abejas en la cafeteria', 'Cafeteria', '2024-08-16 13:52:02', 'http://localhost/AIR_Database/img/709.png'),
 (755, 96, 'Ataque de oso', 'Hay un oso chaval, pero esta siendo controlado por un misterioso hombre que se hace llmar veggeta777', 'Cafeteria', '2024-08-08 12:22:25', 'http://localhost/AIR_Database/img/755.png');
 
 -- --------------------------------------------------------
@@ -141,18 +150,22 @@ CREATE TABLE `tb_revision` (
   `tipo_peligro` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nivel_peligro` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `fecha_revision` timestamp NULL DEFAULT current_timestamp(),
-  `estado` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
+  `estado` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tb_revision`
 --
 
-INSERT INTO `tb_revision` (`id_reporte_fk`, `tipo_peligro`, `nivel_peligro`, `fecha_revision`, `estado`) VALUES
-(592, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE'),
-(755, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE'),
-(412, 'Alto', 'Fisico', '2024-08-13 06:08:02', 'REVISADO'),
-(650, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE');
+INSERT INTO `tb_revision` (`id_reporte_fk`, `tipo_peligro`, `nivel_peligro`, `fecha_revision`, `estado`, `cod_usuario_fk`) VALUES
+(592, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(755, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(412, 'Alto', 'Fisico', '2024-08-13 06:08:02', 'REVISADO', NULL),
+(650, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(360, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(568, 'MEDIO', 'FISICO', '2024-08-16 13:30:07', 'REVISADO', 623),
+(709, 'ALTO', 'FISICO', '2024-08-16 13:22:11', 'REVISADO', 623);
 
 -- --------------------------------------------------------
 
@@ -179,6 +192,7 @@ CREATE TABLE `tb_usuario` (
 INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
 (40, 'Cedula de Ciudadania', 147852963, 'Kikendo', 'casas', 'kikendo@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
+(190, 'Cedula de Ciudadania', 564554642313, 'Usuario', 'Sena', 'Sena3@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (623, 'Cedula de Ciudadania', 6446647, 'Carlos', 'Hernandez', 'carlos@gmail.com', 0x73456e6131323334, 'ACTIVO', 'funcionario'),
 (645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'ACTIVO', 'instructor');
 
@@ -215,7 +229,8 @@ ALTER TABLE `tb_reporte`
 -- Indices de la tabla `tb_revision`
 --
 ALTER TABLE `tb_revision`
-  ADD KEY `id_reporte_fk` (`id_reporte_fk`);
+  ADD KEY `id_reporte_fk` (`id_reporte_fk`),
+  ADD KEY `cod_usuario_fk` (`cod_usuario_fk`);
 
 --
 -- Indices de la tabla `tb_usuario`
@@ -223,22 +238,6 @@ ALTER TABLE `tb_revision`
 ALTER TABLE `tb_usuario`
   ADD PRIMARY KEY (`cod_usuario`),
   ADD UNIQUE KEY `cedula_usuario` (`cedula_usuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `tb_reporte`
---
-ALTER TABLE `tb_reporte`
-  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757;
-
---
--- AUTO_INCREMENT de la tabla `tb_usuario`
---
-ALTER TABLE `tb_usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=646;
 
 --
 -- Restricciones para tablas volcadas
@@ -272,7 +271,8 @@ ALTER TABLE `tb_reporte`
 -- Filtros para la tabla `tb_revision`
 --
 ALTER TABLE `tb_revision`
-  ADD CONSTRAINT `tb_revision_ibfk_1` FOREIGN KEY (`id_reporte_fk`) REFERENCES `tb_reporte` (`id_reporte`);
+  ADD CONSTRAINT `tb_revision_ibfk_1` FOREIGN KEY (`id_reporte_fk`) REFERENCES `tb_reporte` (`id_reporte`),
+  ADD CONSTRAINT `tb_revision_ibfk_2` FOREIGN KEY (`cod_usuario_fk`) REFERENCES `tb_usuario` (`cod_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

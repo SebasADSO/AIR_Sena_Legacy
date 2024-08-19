@@ -5,10 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginTop="15dp"
-    tools:context=".MainActivity">
-
+    tools:context=".admin_login">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,18 +24,12 @@
 
                 <ImageView
                     android:id="@+id/senalogo"
-                    android:layout_width="221dp"
+                    android:layout_width="match_parent"
                     android:layout_height="169dp"
                     android:layout_gravity="center"
+                    android:paddingRight="35dp"
                     app:srcCompat="@drawable/senalogo" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/security_poeple_logo" />
             </LinearLayout>
 
             <TextView
@@ -50,6 +41,16 @@
                 android:text="Aplicación informe de riesgos Sena - AIR Sena"
                 android:textAlignment="center"
                 android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Ingreso Administrador"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -152,36 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/bttregister"
-                    android:layout_width="205dp"
-                    android:layout_height="59dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#50B136"
-                    android:text="REGISTRARME" />
-
-                <Button
-                    android:id="@+id/bttrecover"
-                    android:layout_width="205dp"
-                    android:layout_height="59dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#50B136"
-                    android:text="RESTABLECER CONTRASEÑA" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/bttadmin"
-                android:layout_width="205dp"
-                android:layout_height="59dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
-                android:backgroundTint="#50B136"
-                android:text="INGRESO ADMINISTRADOR" />
+                android:orientation="horizontal"/>
         </LinearLayout>
     </ScrollView>
 

@@ -82,7 +82,7 @@ public class menu_consultaApr extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
                         elements.add(new ListElement("ID: "+jsonObject.getString("id_reporte"), "Codigo del usuario: "+jsonObject.getString("cod_usuario_fk"), "Encabezado: "+jsonObject.getString("encabezado_reporte"), "Descripcion: "+ jsonObject.getString("descripcion_reporte"), "Ubicación: "+jsonObject.getString("ubicacion"), "Fecha y hora: "+jsonObject.getString("fecha_hora_reporte"), jsonObject.getString("soporte_reporte")));
-                        Log.d("Bien", response.toString());
+                        Log.d("Bien", elements.toString());
 
                     } catch (JSONException e) {
                         loading.dismiss();
@@ -117,16 +117,19 @@ public class menu_consultaApr extends AppCompatActivity {
         switch (rol) {
             case "aprendiz":
                 Intent intent = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                intent.putExtra("doc", ndoc);
                 intent.putExtra("ListElement", item);
                 startActivity(intent);
                 break;
             case "instructor":
                 Intent intent2 = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                intent2.putExtra("doc", ndoc);
                 intent2.putExtra("ListElement", item);
                 startActivity(intent2);
                 break;
             case "funcionario":
                 Intent intent3 = new Intent(menu_consultaApr.this, menu_consultafunc.class);
+                intent3.putExtra("doc", ndoc);
                 intent3.putExtra("ListElement", item);
                 startActivity(intent3);
                 break;

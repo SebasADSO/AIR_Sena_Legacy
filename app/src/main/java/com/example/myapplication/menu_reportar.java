@@ -137,7 +137,7 @@ public class menu_reportar extends AppCompatActivity {
                     public void onResponse(String response) {
                         loading.dismiss();
                         Log.d("datos", cod_user + "---"+ ndoc);
-                        revision("http://192.168.43.143/AIR_Database/revision_inicial.php");
+                        revision("http://localhost/AIR_Database/revision_inicial.php".replace(change, ip));
                         Toast.makeText(menu_reportar.this, response, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {

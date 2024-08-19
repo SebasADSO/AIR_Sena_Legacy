@@ -32,7 +32,7 @@ public class Menu_usuario extends AppCompatActivity {
     RequestQueue requestQueue;
     private TextView txt_nombre, txt_apellidos, txt_email_user, txt_n_doc , docselect;
     String ndoc, rol;
-    Button btt_next_condicion, btt_next_rolinfo, btt_next_menu, btt_next_passchange;
+    Button btt_next_condicion, btt_next_rolinfo, btt_next_menu, btt_next_change;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +47,13 @@ public class Menu_usuario extends AppCompatActivity {
         txt_email_user = findViewById(R.id.txt_email_user);
         btt_next_condicion = findViewById(R.id.btt_next_condicion);
         btt_next_rolinfo = findViewById(R.id.btt_next_rolinfo);
-        btt_next_passchange = findViewById(R.id.btt_next_passchange);
-        btt_next_passchange.setOnClickListener(new View.OnClickListener() {
+        btt_next_change = findViewById(R.id.btt_next_change);
+        btt_next_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pass_change = new Intent(Menu_usuario.this, recover_password_01.class);
-                startActivity(pass_change);
+                Intent change = new Intent(Menu_usuario.this, usuario_menuupdate.class);
+                change.putExtra("doc", ndoc);
+                startActivity(change);
             }
         });
         ImageButton logout = findViewById(R.id.btt_logout);
