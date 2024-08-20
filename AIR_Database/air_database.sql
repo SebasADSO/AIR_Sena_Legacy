@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-08-2024 a las 05:15:46
+-- Tiempo de generación: 20-08-2024 a las 21:38:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -61,7 +61,17 @@ INSERT INTO `tb_condicion_usua` (`cod_usuario_fk`, `condicion_usuario`) VALUES
 (190, 'Ninguna'),
 (190, 'Ninguna'),
 (190, 'Baja visión'),
-(190, 'Ninguna');
+(190, 'Ninguna'),
+(107, 'Retinopatía diabética'),
+(107, 'Ninguna'),
+(107, 'Daltonismo (deuteranopía, protanopía, tritanopía)'),
+(107, 'Ninguna'),
+(107, 'Ninguna'),
+(507, 'Ninguna'),
+(507, 'Ninguna'),
+(507, 'Ninguna'),
+(507, 'Ceguera total'),
+(507, 'Daltonismo (deuteranopía, protanopía, tritanopía)');
 
 -- --------------------------------------------------------
 
@@ -82,7 +92,8 @@ CREATE TABLE `tb_encargadoyinstructor` (
 
 INSERT INTO `tb_encargadoyinstructor` (`cod_usuario_fk`, `espec_encargado`, `nivel_formacion`, `dia_laboral`) VALUES
 (645, 'instructor', 'Doctorado', 'Lunes; Martes; Jueves; Sabado; '),
-(623, 'funcionario', 'Tecnico', 'Lunes; Martes; Miercoles; Jueves; Viernes; Sabado; ');
+(623, 'funcionario', 'Tecnico', 'Lunes; Martes; Miercoles; Jueves; Viernes; Sabado; '),
+(107, 'funcionario', 'Doctorado', 'Lunes; Martes; Miercoles; ');
 
 -- --------------------------------------------------------
 
@@ -108,7 +119,8 @@ CREATE TABLE `tb_programayficha` (
 INSERT INTO `tb_programayficha` (`cod_usuario_fk`, `cod_programa`, `numero_ficha`, `nombre_programa`, `jornada_programa`, `fecha_inicio`, `fecha_final`, `inicio_produc`) VALUES
 (96, 2333311, 2673125, 'ADSO', '', '0000-00-00', '0000-00-00', '0000-00-00'),
 (40, 877841, 798465, 'ADSO', 'Nocturna', '2024-08-13', '2024-08-13', '2024-08-13'),
-(190, 3213223, 123123, 'ADSO', 'Manana', '2024-08-14', '2024-08-14', '2024-08-14');
+(190, 3213223, 123123, 'ADSO', 'Manana', '2024-08-14', '2024-08-14', '2024-08-14'),
+(507, 7898797, 7897978, 'ADSO', 'Tarde', '2024-08-20', '2024-08-20', '2024-08-20');
 
 -- --------------------------------------------------------
 
@@ -133,6 +145,7 @@ CREATE TABLE `tb_reporte` (
 INSERT INTO `tb_reporte` (`id_reporte`, `cod_usuario_fk`, `encabezado_reporte`, `descripcion_reporte`, `ubicacion`, `fecha_hora_reporte`, `soporte_reporte`) VALUES
 (360, 190, 'Auida', 'Prueba de reporte', 'SENA', '2024-08-14 12:58:07', 'http://localhost/AIR_Database/img/360.png'),
 (412, 40, 'Se cayo el porton', 'Jesse se cayo el porton', 'Sena CIMI', '2024-08-13 17:13:25', 'http://localhost/AIR_Database/img/412.png'),
+(517, 507, 'Auida x2', 'Se cayo el porton', 'Sena CIMI', '2024-08-20 12:52:30', 'http://localhost/AIR_Database/img/517.png'),
 (568, 40, 'we', 'we', 'we', '2024-08-16 13:52:05', 'http://localhost/AIR_Database/img/568.png'),
 (592, 96, 'Gotera cerca toma corriente', 'Hay una gotera en el techo que da contacto directo a un toma corriente', 'Fabrica de Sotfware', '2024-08-08 12:54:23', 'http://localhost/AIR_Database/img/592.png'),
 (650, 623, 'Prueba', 'Me quieren agitar\nMe incitan a gritar\nSoy como una roca\nPalabras no me tocan\nAdentro hay un volcán\nQue pronto va a estallar\nYo quiero estar tranquilo\nEs mi situación\nUna desolación\nSoy como un lamento\nLamento boliviano\nQue un día empezó\nY no va a terminar\nY a nadie hace daño', 'CIMI', '2024-08-13 06:55:12', 'http://localhost/AIR_Database/img/650.png'),
@@ -162,10 +175,11 @@ INSERT INTO `tb_revision` (`id_reporte_fk`, `tipo_peligro`, `nivel_peligro`, `fe
 (592, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
 (755, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
 (412, 'Alto', 'Fisico', '2024-08-13 06:08:02', 'REVISADO', NULL),
-(650, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(650, 'ALTO', 'PSICOLOGICO', '2024-08-20 12:04:16', 'REVISADO', 623),
 (360, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
 (568, 'MEDIO', 'FISICO', '2024-08-16 13:30:07', 'REVISADO', 623),
-(709, 'ALTO', 'FISICO', '2024-08-16 13:22:11', 'REVISADO', 623);
+(709, 'ALTO', 'FISICO', '2024-08-16 13:22:11', 'REVISADO', 623),
+(517, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL);
 
 -- --------------------------------------------------------
 
@@ -192,7 +206,9 @@ CREATE TABLE `tb_usuario` (
 INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
 (40, 'Permiso por protección Temporal', 456798205125, 'Sara', 'Hernandez', 'sarita@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
 (96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
+(107, 'Cedula de Ciudadania', 123789456123, 'Andres', 'Cardenas', 'andres@gmail.com', 0x53656e6131323334, 'ACTIVO', 'funcionario'),
 (190, 'Cedula de Ciudadania', 564554642313, 'Usuario', 'Sena', 'Sena3@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
+(507, 'Cedula de Ciudadania', 456798205, 'Alfredo', 'ZZZ', 'zzz@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (623, 'Cedula de Ciudadania', 6446647, 'Carlos', 'Hernandez', 'carlos@gmail.com', 0x73456e6131323334, 'ACTIVO', 'funcionario'),
 (645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'ACTIVO', 'instructor'),
 (1000, 'Cedula de Ciudadania', 6549742, 'ADMIN', 'SENA', 'air_admin@gmail.com', 0x41646d696e333231, 'ACTIVO', 'admin');

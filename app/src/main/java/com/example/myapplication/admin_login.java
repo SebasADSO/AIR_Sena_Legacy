@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class admin_login extends AppCompatActivity {
 
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     EditText ndoc, password;
     private Spinner docselect;

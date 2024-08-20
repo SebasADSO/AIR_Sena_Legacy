@@ -30,7 +30,7 @@ public class register_condicion extends AppCompatActivity {
 
     String user_rol, user_id, estado = "";
 
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
 
     String[] condiciones;

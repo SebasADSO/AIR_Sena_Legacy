@@ -31,7 +31,7 @@ import java.util.List;
 
 public class admin_usermanegre extends AppCompatActivity {
     String ndoc;
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
     List<ListElement_User> elements;

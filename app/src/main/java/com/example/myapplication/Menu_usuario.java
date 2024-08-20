@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Menu_usuario extends AppCompatActivity {
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
     private TextView txt_nombre, txt_apellidos, txt_email_user, txt_n_doc , docselect;
@@ -84,16 +84,16 @@ public class Menu_usuario extends AppCompatActivity {
                 switch (rol){
                     case "aprendiz":
                         aprendiz.putExtra("doc", ndoc);
-                        Toast.makeText(Menu_usuario.this, rol+"1", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Menu_usuario.this, rol+"1", Toast.LENGTH_LONG).show();
                         startActivity(aprendiz);
                         break;
                     case "instructor":
-                        Toast.makeText(Menu_usuario.this, rol+"2", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Menu_usuario.this, rol+"2", Toast.LENGTH_LONG).show();
                         insfuc.putExtra("doc", ndoc);
                         startActivity(insfuc);
                         break;
                     case "funcionario":
-                        Toast.makeText(Menu_usuario.this, rol+"3", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Menu_usuario.this, rol+"3", Toast.LENGTH_LONG).show();
                         insfuc2.putExtra("doc", ndoc);
                         startActivity(insfuc2);
                         break;

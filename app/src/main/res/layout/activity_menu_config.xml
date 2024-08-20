@@ -56,6 +56,21 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="50dp"
+                app:srcCompat="@drawable/senalogo" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="AIR_Sena"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
 
         </LinearLayout>
     </ScrollView>

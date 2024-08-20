@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 public class menu_consultafunc extends AppCompatActivity {
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
     TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_estado, txt_fecha_revision;

@@ -30,7 +30,7 @@ public class verificar_info extends AppCompatActivity {
 
     TextView name, last, td, ndoc, email, rol, terminos;
 
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
 
     Button crear;

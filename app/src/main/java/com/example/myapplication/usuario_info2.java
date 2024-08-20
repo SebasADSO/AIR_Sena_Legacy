@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_info2 extends AppCompatActivity {
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc;

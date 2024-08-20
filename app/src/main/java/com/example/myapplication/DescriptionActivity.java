@@ -29,7 +29,7 @@ import org.json.JSONObject;
 
 public class DescriptionActivity extends AppCompatActivity {
     RequestQueue requestQueue;
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
 String id, ndoc;
 TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;

@@ -59,7 +59,7 @@ public class menu_reportar extends AppCompatActivity {
     RequestQueue requestQueue;
     EditText txt_suceso, txt_descrpcion, txt_lugar;
 
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
 
     Button btt_siguiente;

@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     EditText ndoc, password;
 private Spinner docselect;

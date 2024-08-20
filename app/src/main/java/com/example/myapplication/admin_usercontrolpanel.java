@@ -32,7 +32,7 @@ import java.util.Map;
 public class admin_usercontrolpanel extends AppCompatActivity {
     Spinner docselect, estado_cuenta;
 
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
 

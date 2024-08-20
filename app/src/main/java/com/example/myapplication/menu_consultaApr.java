@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class menu_consultaApr extends AppCompatActivity {
-    String ip = "192.168.43.143";
+    String ip = "10.201.131.13";
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc, rol;
@@ -106,7 +106,7 @@ public class menu_consultaApr extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Log.d("error", error.getMessage().toString());
-                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No se encontraron reportes", Toast.LENGTH_SHORT).show();
             }
         }
         );
