@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-08-2024 a las 01:46:35
+-- Tiempo de generación: 20-08-2024 a las 05:15:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -190,11 +190,12 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
-(40, 'Cedula de Ciudadania', 147852963, 'Kikendo', 'casas', 'kikendo@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
+(40, 'Permiso por protección Temporal', 456798205125, 'Sara', 'Hernandez', 'sarita@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
 (96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (190, 'Cedula de Ciudadania', 564554642313, 'Usuario', 'Sena', 'Sena3@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (623, 'Cedula de Ciudadania', 6446647, 'Carlos', 'Hernandez', 'carlos@gmail.com', 0x73456e6131323334, 'ACTIVO', 'funcionario'),
-(645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'ACTIVO', 'instructor');
+(645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'ACTIVO', 'instructor'),
+(1000, 'Cedula de Ciudadania', 6549742, 'ADMIN', 'SENA', 'air_admin@gmail.com', 0x41646d696e333231, 'ACTIVO', 'admin');
 
 --
 -- Índices para tablas volcadas

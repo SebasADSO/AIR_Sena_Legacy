@@ -64,7 +64,7 @@ public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //listener.onItemClick(item);
+                    listener.onItemClick(item);
                 }
             });
         }

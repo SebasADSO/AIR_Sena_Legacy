@@ -80,7 +80,7 @@ public class admin_usermanegre extends AppCompatActivity {
                 ListAdapter_user listAdapter2 = new ListAdapter_user(elements, admin_usermanegre.this, new ListAdapter_user.OnItemClickListener() {
                     @Override
                     public void onItemClick(ListElement_User item) {
-                        //moveToDescription(item);
+                        moveToDescriptionUser(item);
                         Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -101,5 +101,10 @@ public class admin_usermanegre extends AppCompatActivity {
         );
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+    public void moveToDescriptionUser(ListElement_User item) {
+        Intent intent = new Intent(admin_usermanegre.this, admin_usercontrolpanel.class);
+        intent.putExtra("ListElement_user", item);
+        startActivity(intent);
     }
 }
