@@ -30,7 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_condicion extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc, rol;

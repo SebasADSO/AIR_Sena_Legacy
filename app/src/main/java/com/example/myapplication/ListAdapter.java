@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,19 +48,31 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconImage;
-        TextView name, city, status;
+        TextView name, city, status, revision;
         ViewHolder(View itemView) {
             super(itemView);
             iconImage = itemView.findViewById(R.id.imageView6);
             name = itemView.findViewById(R.id.nameTextView);
             city = itemView.findViewById(R.id.cityTextView);
             status = itemView.findViewById(R.id.statusTextView);
+            revision = itemView.findViewById(R.id.RevisionTextView);
         }
 
         void bindData(final ListElement item) {
             name.setText(item.getId_reporte());
             city.setText(item.getEncabezado_reporte());
             status.setText(item.getFecha_hora_reporte());
+            if (item.getEstado().equals("PENDIENTE")) {
+                revision.setTextColor(Color.parseColor("#ff0000"));
+                revision.setText(item.getEstado());
+            }
+            else if (item.getEstado().equals("REVISADO")) {
+                revision.setTextColor(Color.parseColor("#35cf06"));
+                revision.setText(item.getEstado());
+            }
+            else {
+                revision.setText(item.getEstado());
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

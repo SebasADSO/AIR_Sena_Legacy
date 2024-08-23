@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:animateLayoutChanges="true"
+    android:padding="10dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
@@ -13,6 +15,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
+        android:background="@drawable/roundcorner"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,19 +36,20 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:background="@drawable/roundcorner"
-                android:backgroundTint="#8BC34A" />
+                android:backgroundTint="#8BC34A"
+                app:srcCompat="@drawable/user" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="161dp"
-                android:layout_height="118dp"
+                android:layout_width="211dp"
+                android:layout_height="115dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="14dp"
                 android:layout_marginLeft="-286dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="176dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="111dp"
                 android:layout_marginBottom="13dp"
                 android:layout_toEndOf="@id/imageView999"
                 android:layout_toRightOf="@id/estadouser_txt"
@@ -53,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/coduser_txt"
-                    android:layout_width="match_parent"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:text="id"
                     android:textColor="@android:color/black"
@@ -62,8 +66,8 @@
 
                 <TextView
                     android:id="@+id/nombreuser_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_width="200dp"
+                    android:layout_height="49dp"
                     android:layout_margin="5dp"
                     android:text="title"
                     android:textSize="20sp" />
@@ -77,9 +81,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="45dp"
-                android:layout_marginRight="45dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginBottom="107dp"
                 android:text="STATUS"
                 android:textSize="20sp"
                 android:textStyle="bold" />

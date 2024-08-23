@@ -31,7 +31,7 @@ import java.util.List;
 
 public class admin_usermanegre extends AppCompatActivity {
     String ndoc;
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     List<ListElement_User> elements;
@@ -47,7 +47,7 @@ public class admin_usermanegre extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent menu_home_back = new Intent(admin_usermanegre.this, MainActivity.class);
+                Intent menu_home_back = new Intent(admin_usermanegre.this, admin_login.class);
                 startActivity(menu_home_back);
                 finishAffinity();
             }

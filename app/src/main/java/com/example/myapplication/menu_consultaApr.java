@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.EventLogTags;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class menu_consultaApr extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc, rol;
@@ -63,7 +64,19 @@ public class menu_consultaApr extends AppCompatActivity {
             case "funcionario":
                 consultas("http://localhost/AIR_Database/consulta_func.php".replace(change, ip));
                 break;
+            case "admin":
+                consultas("http://localhost/AIR_Database/consulta_func.php".replace(change, ip));
+                break;
         }
+        Button btt_salir = findViewById(R.id.btt_salir);
+        btt_salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent salir = new Intent(menu_consultaApr.this, menu_home.class);
+                salir.putExtra("doc", ndoc);
+                startActivity(salir);
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -81,7 +94,7 @@ public class menu_consultaApr extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         loading.dismiss();
-                        elements.add(new ListElement("ID: "+jsonObject.getString("id_reporte"), "Codigo del usuario: "+jsonObject.getString("cod_usuario_fk"), "Encabezado: "+jsonObject.getString("encabezado_reporte"), "Descripcion: "+ jsonObject.getString("descripcion_reporte"), "Ubicación: "+jsonObject.getString("ubicacion"), "Fecha y hora: "+jsonObject.getString("fecha_hora_reporte"), jsonObject.getString("soporte_reporte")));
+                        elements.add(new ListElement("ID: "+jsonObject.getString("id_reporte"), "Codigo del usuario: "+jsonObject.getString("cod_usuario_fk"), "Encabezado: "+jsonObject.getString("encabezado_reporte"), "Descripcion: "+ jsonObject.getString("descripcion_reporte"), "Ubicación: "+jsonObject.getString("ubicacion"), "Fecha y hora: "+jsonObject.getString("fecha_hora_reporte"), jsonObject.getString("soporte_reporte"), jsonObject.getString("estado")));
                         Log.d("Bien", elements.toString());
 
                     } catch (JSONException e) {
@@ -118,20 +131,30 @@ public class menu_consultaApr extends AppCompatActivity {
             case "aprendiz":
                 Intent intent = new Intent(menu_consultaApr.this, DescriptionActivity.class);
                 intent.putExtra("doc", ndoc);
+                intent.putExtra("rol", rol);
                 intent.putExtra("ListElement", item);
                 startActivity(intent);
                 break;
             case "instructor":
                 Intent intent2 = new Intent(menu_consultaApr.this, DescriptionActivity.class);
                 intent2.putExtra("doc", ndoc);
+                intent2.putExtra("rol", rol);
                 intent2.putExtra("ListElement", item);
                 startActivity(intent2);
                 break;
             case "funcionario":
                 Intent intent3 = new Intent(menu_consultaApr.this, menu_consultafunc.class);
                 intent3.putExtra("doc", ndoc);
+                intent3.putExtra("rol", rol);
                 intent3.putExtra("ListElement", item);
                 startActivity(intent3);
+                break;
+            case "admin":
+                Intent intent4 = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                intent4.putExtra("doc", ndoc);
+                intent4.putExtra("rol", rol);
+                intent4.putExtra("ListElement", item);
+                startActivity(intent4);
                 break;
         }
 

@@ -40,13 +40,13 @@ import java.util.List;
 import java.util.Map;
 
 public class menu_consultafunc extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_estado, txt_fecha_revision;
     EditText txt_nivel_peligro, txt_tipo_peligro;
     ImageView soporte;
-    String fecha, id, ndoc, cod_re;
+    String fecha, id, ndoc, cod_re, rol;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +63,7 @@ public class menu_consultafunc extends AppCompatActivity {
         });
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
         Bundle extras = getIntent().getExtras();
+        rol = extras.getString("rol");
         ndoc = extras.getString("doc");
         id = element.getId_reporte();
         id_reporte = findViewById(R.id.txt_id_reporte);
@@ -118,6 +119,13 @@ public class menu_consultafunc extends AppCompatActivity {
                 }
             }
         });
+        Button btt_salir = findViewById(R.id.btt_salir);
+        btt_salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                salir_menu();
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -162,6 +170,7 @@ public class menu_consultafunc extends AppCompatActivity {
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "REVISADO CON EXITO", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
+                salir_menu();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -211,5 +220,11 @@ public class menu_consultafunc extends AppCompatActivity {
         );
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+    public void salir_menu() {
+        Intent salir = new Intent(menu_consultafunc.this, menu_consultaApr.class);
+        salir.putExtra("doc", ndoc);
+        salir.putExtra("rol", rol);
+        startActivity(salir);
     }
 }

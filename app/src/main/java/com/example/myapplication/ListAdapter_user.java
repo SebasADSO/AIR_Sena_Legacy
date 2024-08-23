@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +62,18 @@ public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.View
         void bindData(final ListElement_User item) {
             name.setText(item.getCod_usuario());
             city.setText(item.getCedula_usuario());
-            status.setText(item.getEstado());
+            if (item.getEstado().equals("ESTADO: INACTIVO")) {
+                status.setTextColor(Color.parseColor("#ff0000"));
+                status.setText(item.getEstado());
+            }
+            else if (item.getEstado().equals("ESTADO: ACTIVO")) {
+                status.setTextColor(Color.parseColor("#35cf06"));
+                status.setText(item.getEstado());
+            }
+            else {
+                Log.d("Color test:", "No se recibio el color: "+item.getEstado());
+                status.setText(item.getEstado());
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -29,7 +29,7 @@ public class menu_home extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
 
     TextView txt_mensaje;

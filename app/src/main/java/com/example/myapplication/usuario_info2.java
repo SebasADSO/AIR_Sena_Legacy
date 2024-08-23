@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_info2 extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc;
@@ -61,7 +61,7 @@ public class usuario_info2 extends AppCompatActivity {
                 startActivity(condicio);
             }
         });
-        btt_next_rolinfo = findViewById(R.id.btt_next_rolinfo);
+        btt_next_rolinfo = findViewById(R.id.btt_next_rolinfo2);
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

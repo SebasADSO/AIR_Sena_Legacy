@@ -33,7 +33,7 @@ public class register_rolinfo2 extends AppCompatActivity {
 
     EditText txt_cargo_register;
 
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
 
     CheckBox cb_lunes, cb_martes, cb_miercoles, cb_jueves, cb_viernes, cb_sabado;

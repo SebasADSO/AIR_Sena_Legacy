@@ -18,6 +18,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main2);
+        // Llamado del boton aprendiz, envio de los datos requeridos para la actividad y lanzamiento de la actividad regsitro informacion del usuario
         Intent user_data = new Intent(MainActivity2.this, register_userinfo.class);
         Button aprendiz = findViewById(R.id.aprendiz);
         aprendiz.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +28,7 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(user_data);
             }
         });
+        // Llamado del boton instructor, envio de los datos requeridos para la actividad y lanzamiento de la actividad regsitro informacion del usuario
         Button instructor = findViewById(R.id.instructor);
         instructor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(user_data);
             }
         });
+        // Llamado del boton funcionario, envio de los datos requeridos para la actividad y lanzamiento de la actividad regsitro informacion del usuario
         Button funcionario = findViewById(R.id.funcionario);
         funcionario.setOnClickListener(new View.OnClickListener() {
             @Override

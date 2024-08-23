@@ -28,7 +28,7 @@ import java.util.Map;
 public class recover_password_03 extends AppCompatActivity {
     String email;
     EditText password, password_confirm;
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

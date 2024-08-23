@@ -36,7 +36,7 @@ public class usuario_infoupdate extends AppCompatActivity {
     private TextView txt_n_doc , docselect;
     EditText txt_nombre, txt_apellidos, txt_email_user;
     String ndoc;
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     Button btt_next_cancel, btt_update_data;

@@ -31,8 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class admin_login extends AppCompatActivity {
-
-    String ip = "10.201.131.13";
+    // Llamado de los elementos textview, edittext, button y creacion de string
+    String ip = app_config.ip_server;
     String change = "localhost";
     EditText ndoc, password;
     private Spinner docselect;
@@ -65,46 +65,72 @@ public class admin_login extends AppCompatActivity {
                 return true;
             }
         });
+        // Metodo le asigna una funcion al momento de dar click al boton login administrador
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Se pasa a una condicional en la cual se valida si los campos no estan vacios y devuelve true
                 if (!ndoc.getText().toString().trim().isEmpty() && !password.getText().toString().trim().isEmpty()) {
+                    // Ejecucion del metodo login con los parametros asignados
                     login_admin("http://localhost/AIR_Database/Login_admin.php".replace(change, ip));
-                } else if (ndoc.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
+                }
+                // Se pasa a una condicional en la cual se valida si los campos estan estan vacios, devuelve false y no permite el acceso
+                else if (ndoc.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()) {
                     Toast.makeText(admin_login.this, "Los campos estan vacios", Toast.LENGTH_LONG).show();
                 }
             }
         });
+        // Llama a los Spinners y se asignan sus correspondientes adaptadores
         docselect = findViewById(R.id.docselect);
         ArrayAdapter<String> selector=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, documentos);
         docselect.setAdapter(selector);
+        Button bttexit = findViewById(R.id.bttexit);
+        bttexit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent main_home = new Intent(admin_login.this, MainActivity.class);
+                startActivity(main_home);
+                finishAffinity();
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
+    // Creacion del metodo que validara la informacion suministrada por el administrador y la validara con la base de datos
     private  void login_admin(String URL) {
+        // Se crea una nueva solicitud a un seervidor esta solicitud se dara con el metodo POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
+            // Al obtener una respuesta del servidor se actira este metodo que pasara como respuesta correcta
             public void onResponse(String response) {
+                // Se evaluara si la respuesta no esta vacia y devolvera true
                 if(!response.isEmpty()){
+                    // Se abrira una nueva actividad que este caso sera el gestion de usuarios
                     Intent login = new Intent(admin_login.this, admin_usermanegre.class);
+                    // Se mandara los datos a la otra actividad que se definio en el Intent
                     login.putExtra("doc", ndoc.getText().toString());
+                    // Se inicia la actividad del Intent
                     startActivity(login);
                 }
+                // Si es false a la anterior condicional se ejecutara siguiente codigo
                 else {
+                    // Se lanazara un mensaje tipo Toast, que nos notificara que no se encontraron usuarios o estan inactivos
                     Toast.makeText(admin_login.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
+            // Al obtener una respuesta negativa se pasara un metodo que nos notificara que algo fallo
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(admin_login.this, "El usuario no existe", Toast.LENGTH_LONG).show();
             }
         }){
             @Nullable
             @Override
+            // Se crea un Map que enviara los datos especificados al servicio web para validar con la base de datos
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("tipo", docselect.getSelectedItem().toString());
@@ -113,6 +139,7 @@ public class admin_login extends AppCompatActivity {
                 return parametros;
             }
         };
+        // Se crea una peticion con este formulario, se especifica que las respuestas sera un String y se lanza la peticion
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

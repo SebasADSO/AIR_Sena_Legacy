@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,9 +30,9 @@ import org.json.JSONObject;
 
 public class DescriptionActivity extends AppCompatActivity {
     RequestQueue requestQueue;
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
-String id, ndoc;
+String id, ndoc, rol;
 TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;
 ImageView soporte;
     @Override
@@ -41,6 +42,7 @@ ImageView soporte;
         setContentView(R.layout.activity_description);
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
         Bundle extras = getIntent().getExtras();
+        rol =extras.getString("rol");
         ndoc = extras.getString("doc");
         id = element.getId_reporte();
         id_reporte = findViewById(R.id.txt_id_reporte);
@@ -84,6 +86,16 @@ ImageView soporte;
                 .load(link)
                 .into(soporte);
 
+        Button btt_salir = findViewById(R.id.btt_salir);
+        btt_salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent salir = new Intent(DescriptionActivity.this, menu_consultaApr.class);
+                salir.putExtra("doc", ndoc);
+                salir.putExtra("rol", rol);
+                startActivity(salir);
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

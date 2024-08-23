@@ -34,7 +34,7 @@ import java.util.Map;
 public class register_userinfo extends AppCompatActivity {
     private Spinner docselect;
 
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
 
     Boolean bandera = false;

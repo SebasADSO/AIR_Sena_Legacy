@@ -4,7 +4,7 @@ App name: risk report application [AIR_Sena](https://github.com/SebasADSO/AIR_Se
 
 Purpose: graduation project
 
-Version: Release 1.1.0
+Version: Release 1.1.2
 
 Language programming: JAVA and PHP
 

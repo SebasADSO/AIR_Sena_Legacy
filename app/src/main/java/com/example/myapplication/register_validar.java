@@ -40,7 +40,7 @@ public class register_validar extends AppCompatActivity {
 
     EditText code_one, code_two, code_three, code_four, code_five, code_six;
 
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
 
     String code = "", user_rol, user_id, cod_verificar, estado = "";

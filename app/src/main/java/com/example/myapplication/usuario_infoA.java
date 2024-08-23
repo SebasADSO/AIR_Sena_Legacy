@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_infoA extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     String ndoc;
@@ -69,7 +69,7 @@ public class usuario_infoA extends AppCompatActivity {
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent user = new Intent(usuario_infoA.this, usuario_condicion.class);
+                Intent user = new Intent(usuario_infoA.this, Menu_usuario.class);
                 user.putExtra("doc", ndoc);
                 startActivity(user);
             }

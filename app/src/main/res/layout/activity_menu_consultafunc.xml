@@ -180,6 +180,15 @@
                 android:layout_weight="1"
                 android:backgroundTint="#50B136"
                 android:text="REVISAR" />
+
+            <Button
+                android:id="@+id/btt_salir"
+                android:layout_width="205dp"
+                android:layout_height="69dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="#50B136"
+                android:text="CANCELAR" />
         </LinearLayout>
     </ScrollView>
 

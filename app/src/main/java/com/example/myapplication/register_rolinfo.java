@@ -35,7 +35,7 @@ import java.util.Map;
 public class register_rolinfo extends AppCompatActivity {
     TextView fecha1, fecha2, fecha3;
 
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
 
     String fechaI, fechaF, fechaP, estado = "", user_id, user_rol;

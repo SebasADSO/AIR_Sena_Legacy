@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Menu_usuario extends AppCompatActivity {
-    String ip = "10.201.131.13";
+    String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
     private TextView txt_nombre, txt_apellidos, txt_email_user, txt_n_doc , docselect;

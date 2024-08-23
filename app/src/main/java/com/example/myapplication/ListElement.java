@@ -10,8 +10,9 @@ public class ListElement implements Serializable {
     public String ubicacion;
     public String fecha_hora_reporte;
     public String soporte_reporte;
+    public String estado;
 
-    public ListElement(String id_reporte, String cod_usuario_fk, String encabezado_reporte, String descripcion_reporte, String ubicacion, String fecha_hora_reporte, String soporte_reporte) {
+    public ListElement(String id_reporte, String cod_usuario_fk, String encabezado_reporte, String descripcion_reporte, String ubicacion, String fecha_hora_reporte, String soporte_reporte, String estado) {
         this.id_reporte = id_reporte;
         this.cod_usuario_fk = cod_usuario_fk;
         this.encabezado_reporte = encabezado_reporte;
@@ -19,6 +20,7 @@ public class ListElement implements Serializable {
         this.ubicacion = ubicacion;
         this.fecha_hora_reporte = fecha_hora_reporte;
         this.soporte_reporte = soporte_reporte;
+        this.estado = estado;
     }
     public String getId_reporte() {
         return id_reporte;
@@ -74,5 +76,12 @@ public class ListElement implements Serializable {
 
     public void setSoporte_reporte(String soporte_reporte) {
         this.soporte_reporte = soporte_reporte;
+    }
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
