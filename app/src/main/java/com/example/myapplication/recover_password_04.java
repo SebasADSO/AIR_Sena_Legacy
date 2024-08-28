@@ -18,6 +18,7 @@ public class recover_password_04 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_recover_password04);
+        // Evento para volver al menu
         Button menu = findViewById(R.id.menu);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override

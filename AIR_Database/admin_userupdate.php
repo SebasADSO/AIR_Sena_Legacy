@@ -1,6 +1,20 @@
 <?php
 include("./conexion.php");
+/**
 
+ * Actualiza los datos de un usuario en la base de datos.
+
+ *
+
+ * @param $id El código del usuario que se va a actualizar.
+
+ * @param $tipo_docu_usuario El tipo de documento del usuario.
+
+ * @param $doc El número de documento del usuario.
+
+ * @param $estado El estado del usuario.
+
+ */
 $id=$_POST["cod_usuario"];
 $tipo_docu_usuario=$_POST["tipo_docu_usuario"];
 $doc=$_POST["numero_documento"];

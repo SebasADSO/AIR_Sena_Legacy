@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class menu_consultaApr extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
@@ -42,10 +43,12 @@ public class menu_consultaApr extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_consulta_apr);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         rol = extras.getString("rol");
         ndoc = extras.getString("doc");
         ImageButton logout = findViewById(R.id.btt_logout);
+        // Metodo le asigna una funcion al momento de dar click al boton salir
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +57,7 @@ public class menu_consultaApr extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Llamado al servidor de acuerdo al rol del usuario
         switch (rol) {
             case "aprendiz":
                 consultas("http://localhost/AIR_Database/consultas_apr.php?cedula_usuario=".replace(change, ip)+ndoc+"");
@@ -68,6 +72,7 @@ public class menu_consultaApr extends AppCompatActivity {
                 consultas("http://localhost/AIR_Database/consulta_func.php".replace(change, ip));
                 break;
         }
+        // Retrocede hacia el anterior menu, devolviendo los datos necesarios para su funcionamiento
         Button btt_salir = findViewById(R.id.btt_salir);
         btt_salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +88,14 @@ public class menu_consultaApr extends AppCompatActivity {
             return insets;
         });
     }
+    // Se creara un metodo get para optener los datos de los reportes
     private void consultas(String URL) {
+        // Se inicia el elemnto grafico de una barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una peticion que devolvera un array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 elements = new ArrayList<>();
@@ -116,6 +125,7 @@ public class menu_consultaApr extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Log.d("error", error.getMessage().toString());
@@ -123,9 +133,11 @@ public class menu_consultaApr extends AppCompatActivity {
             }
         }
         );
+        // Se lanza la solicitud
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    // se crea un metodo que nos permitira movernos hacia las vista que mostrara la informacion del reporte
     public void moveToDescription(ListElement item) {
         switch (rol) {
             case "aprendiz":

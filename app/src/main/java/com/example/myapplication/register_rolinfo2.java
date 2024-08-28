@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class register_rolinfo2 extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button y creacion de string
     EditText txt_cargo_register;
 
     String ip = app_config.ip_server;
@@ -48,9 +48,11 @@ public class register_rolinfo2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_rolinfo2);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle user_extra = getIntent().getExtras();
         user_id = user_extra.getString("user_id");
         user_rol = user_extra.getString("rol");
+        // Se llaman los elemntos del xml
         cb_lunes = findViewById(R.id.cb_lunes);
         cb_martes = findViewById(R.id.cb_martes);
         cb_miercoles = findViewById(R.id.cb_miercoles);
@@ -63,6 +65,7 @@ public class register_rolinfo2 extends AppCompatActivity {
         txt_cargo_register = findViewById(R.id.txt_cargo_register);
         txt_cargo_register.setText(user_rol);
         Button siguiente = findViewById(R.id.btt_recover_pass);
+        // Inicia la actividad de actualizacion de datos
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +86,15 @@ public class register_rolinfo2 extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void servicio(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -117,6 +129,11 @@ public class register_rolinfo2 extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+    /**
+
+     * Establece los días de la semana seleccionados en una cadena de texto.
+
+     */
     public void setDias() {
                 if (cb_lunes.isChecked()) {
                     if (!dias.contains("Lunes; ")) {

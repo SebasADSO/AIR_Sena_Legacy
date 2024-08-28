@@ -1,4 +1,15 @@
 <?php
+/**
+
+ * Actualiza el estado de un usuario en la base de datos.
+
+ *
+
+ * @param $id El código del usuario que se va a actualizar.
+
+ * @param $estado El nuevo estado del usuario.
+
+ */
 include("./conexion.php");
 
 $id=$_POST["cod_usuario"];

@@ -26,7 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class menu_home extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button y creacion de string
     RequestQueue requestQueue;
 
     String ip = app_config.ip_server;
@@ -42,6 +42,7 @@ public class menu_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_home);
+        // Se llaman los elemntos del xml
         txt_mensaje = findViewById(R.id.txt_mensaje);
         txt_mensaje.setText("Bienvenid@");
         ImageButton logout = findViewById(R.id.btt_logout);
@@ -49,9 +50,12 @@ public class menu_home extends AppCompatActivity {
         btt_consultar = findViewById(R.id.btt_consultar);
         btt_usuario = findViewById(R.id.btt_usuario);
         btt_config = findViewById(R.id.btt_config);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se ejecuta la solicitud
         buscarol("http://localhost/AIR_Database/userinfo_buscarrol.php?cedula_usuario=".replace(change, ip)+ndoc+"");
+        // Lleva hacia la sesion de reportar
         btt_reportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +64,7 @@ public class menu_home extends AppCompatActivity {
                 startActivity(reportar);
             }
         });
+        // Lleva hacia la sesion de consultar reporte
         btt_consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +74,7 @@ public class menu_home extends AppCompatActivity {
                 startActivity(consulta);
             }
         });
+        // Lleva hacia la sesion de informacion de usuario
         btt_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +83,7 @@ public class menu_home extends AppCompatActivity {
                 startActivity(user);
             }
         });
+        // Lleva hacia la sesion de configuracion
         btt_config.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +91,7 @@ public class menu_home extends AppCompatActivity {
                 startActivity(config);
             }
         });
+        // Se cierra la sesion del usuario
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,10 +106,14 @@ public class menu_home extends AppCompatActivity {
             return insets;
         });
     }
+    // Se crea un metodo de consulta
     private void buscarol(String URL) {
+        // Se inicia la barra de cargar solo es grafica
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una solicitud POST
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si se recibe ejecuta esta sesion de codigo
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 for (int i = 0; i < response.length(); i++) {
@@ -117,12 +129,14 @@ public class menu_home extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si se rechaza ejecuta esta sesion de codigo
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }
         );
+        // Se lanza la solicitud
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }

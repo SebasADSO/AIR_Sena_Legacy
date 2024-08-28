@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -174,38 +174,10 @@
                 android:id="@+id/btt_register_verificar"
                 android:layout_width="200dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:backgroundTint="#50B136"
                 android:text="Verificar" />
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="90dp"
-                android:gravity="center"
-                android:text="No disponible" />
-
-            <EditText
-                android:id="@+id/txt_email_user"
-                style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                android:layout_width="344dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="14dp"
-                android:background="#ABD57B"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="No disponible"
-                android:inputType="textEmailAddress"
-                android:paddingTop="14dp" />
-
-            <Button
-                android:id="@+id/btt_register_change"
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#50B136"
-                android:text="No disponible" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Aplicación informe de riesgos Sena - AIR Sena</string>
+    <string name="hyperlink">A dar al boton crear usted acepta que esta de acuerdo con los <a href="https://www.sena.edu.co/es-co/Paginas/politicasCondicionesUso.aspx">TERMINOS DE USO</a> y la <a href="https://www.sena.edu.co/es-co/transparencia/Documents/proteccion_datos_personales_sena_2016.pdf">POLITICA DE PRIVACIDAD</a></string>
 </resources>

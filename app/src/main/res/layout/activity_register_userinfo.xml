@@ -167,7 +167,7 @@
                     android:backgroundTint="#ABD57B "
                     android:ems="10"
                     android:hint="CONTRASEÑA"
-                    android:maxLength="8"
+                    android:maxLength="15"
                     android:inputType="textPassword"
                     android:paddingTop="14dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -206,7 +206,7 @@
                     android:ems="10"
                     android:hint="CONTRASEÑA"
                     android:inputType="textPassword"
-                    android:maxLength="8"
+                    android:maxLength="15"
                     android:paddingTop="14dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

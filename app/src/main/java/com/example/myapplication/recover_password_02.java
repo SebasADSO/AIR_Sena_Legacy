@@ -12,15 +12,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class recover_password_02 extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_recover_password02);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         String email = extras.getString("email");
+        // Se llaman los elemntos del xml
         Button home = findViewById(R.id.btt_recover_home);
+        // Evento para cambiar la contraseña (Ojo a futuro implementar JavaMail o similar esta evento es de prueba y debe ser removida)
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

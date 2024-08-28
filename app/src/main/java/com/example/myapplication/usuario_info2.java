@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_info2 extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
@@ -38,8 +39,10 @@ public class usuario_info2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_usuario_info2);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se llaman los elemntos del xml
         txt_cod_program = findViewById(R.id.txt_cod_program);
         txt_num_ficha = findViewById(R.id.txt_num_ficha);
         txt_nombre_programa = findViewById(R.id.txt_nombre_programa);
@@ -80,6 +83,7 @@ public class usuario_info2 extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Llamado del metodo consulta
         buscarrol("http://localhost/AIR_Database/userinfo_rolif.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -87,6 +91,15 @@ public class usuario_info2 extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarrol(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {

@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class register_rolinfo extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     TextView fecha1, fecha2, fecha3;
 
     String ip = app_config.ip_server;
@@ -50,9 +51,11 @@ public class register_rolinfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_rolinfo);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle user_extra = getIntent().getExtras();
         user_id = user_extra.getString("user_id");
         user_rol = user_extra.getString("rol");
+        // Se llaman los elemntos del xml
         fecha1 = findViewById(R.id.fecha1);
         fecha2 = findViewById(R.id.fecha2);
         fecha3 = findViewById(R.id.fecha3);
@@ -64,6 +67,7 @@ public class register_rolinfo extends AppCompatActivity {
         String textPattern = "[a-zA-Z ]+";
         txt_nombre_programa = findViewById(R.id.txt_nombre_programa);
         Button siguiente = findViewById(R.id.btt_next_condicion);
+        // Inicia la actividad de actualizacion de datos
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +93,15 @@ public class register_rolinfo extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Muestra un diálogo de selección de fecha y establece la fecha seleccionada en un campo de texto.
+
+     *
+
+     * @param view La vista que desencadena la llamada a este método.
+
+     */
     public void fecha_inicial (View view) {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -103,6 +116,15 @@ public class register_rolinfo extends AppCompatActivity {
         }, year, month, day);
         dialog.show();
     }
+    /**
+
+     * Muestra un diálogo de selección de fecha y establece la fecha seleccionada en un campo de texto.
+
+     *
+
+     * @param view La vista que desencadena la llamada a este método.
+
+     */
     public void fecha_final (View view) {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -117,6 +139,15 @@ public class register_rolinfo extends AppCompatActivity {
         }, year, month, day);
         dialog.show();
     }
+    /**
+
+     * Muestra un diálogo de selección de fecha y establece la fecha seleccionada en un campo de texto.
+
+     *
+
+     * @param view La vista que desencadena la llamada a este método.
+
+     */
     public void fecha_productiva (View view) {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -131,6 +162,15 @@ public class register_rolinfo extends AppCompatActivity {
         }, year, month, day);
         dialog.show();
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void servicio(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

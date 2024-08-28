@@ -13,16 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+    // Variables inicializadas
     private List<ListElement> mData;
     private LayoutInflater mInflater;
     private Context context;
     final ListAdapter.OnItemClickListener listener;
 
+    // Se crea un evento click para el adactador
     public interface OnItemClickListener {
         void onItemClick(ListElement item);
     }
 
-
+    // Se establece Los paramentros necesarios para el adaptador
     public ListAdapter(List<ListElement> itemList, Context context, ListAdapter.OnItemClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -30,15 +32,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.listener = listener;
     }
     @Override
+    // Obtiene la longitud de los elementos del adaptador
     public int getItemCount() {
         return  mData.size();
     }
     @Override
+    // Se enlaza con una con una vista xml
     public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.list_element, null);
         return  new ListAdapter.ViewHolder(view);
     }
     @Override
+    // vincula los datos con la vista
     public void onBindViewHolder(final ListAdapter.ViewHolder holder, final int position) {
         holder.bindData(mData.get(position));
     }
@@ -46,6 +51,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public  void setItems(List<ListElement> items) {
         mData = items;
     }
+    // Se crea un metodo que se extiende hacia a los elementos RecycleView y se asignan los elementos en la vista
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconImage;
         TextView name, city, status, revision;
@@ -59,6 +65,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
 
         void bindData(final ListElement item) {
+            // Se viculan de acuerdo a los elementos del ListElement
             name.setText(item.getId_reporte());
             city.setText(item.getEncabezado_reporte());
             status.setText(item.getFecha_hora_reporte());

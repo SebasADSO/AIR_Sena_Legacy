@@ -50,7 +50,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class menu_reportar extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ndoc, report_id, cod_user, fecha;
     ImageButton btt_camera;
     ImageView view;
@@ -70,6 +70,7 @@ public class menu_reportar extends AppCompatActivity {
         setContentView(R.layout.activity_menu_reportar);
         Random rand = new Random();
         int id_r = rand.nextInt(800);
+        // Se llaman los elemntos del xml
         report_id = Integer.toString(id_r);
         txt_suceso = findViewById(R.id.txt_suceso);
         txt_descrpcion = findViewById(R.id.txt_descrpcion);
@@ -77,11 +78,13 @@ public class menu_reportar extends AppCompatActivity {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:ss:mm");
         fecha = df.format(c);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
         view = findViewById(R.id.imageView4);
         //Toast.makeText(getApplicationContext(), ndoc, Toast.LENGTH_SHORT).show();
         btt_camera = findViewById(R.id.btt_camera);
+        // Se crea un evento al boton del soporte
         btt_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +92,7 @@ public class menu_reportar extends AppCompatActivity {
                 showFileChooser();
             }
         });
+        // Evento de cierre de sesion
         ImageButton logout = findViewById(R.id.btt_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,7 @@ public class menu_reportar extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Evento de continuar y enviar
         btt_siguiente = findViewById(R.id.btt_siguiente);
         btt_siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +125,17 @@ public class menu_reportar extends AppCompatActivity {
         });
 
     }
+    /**
+
+     * Convierte un objeto Bitmap en una cadena codificada en Base64.
+
+     *
+
+     * @param bmp El objeto Bitmap de entrada que se convertirá.
+
+     * @return Una cadena codificada en Base64 que representa el objeto Bitmap de entrada.
+
+     */
     public String getStringImagen(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -127,8 +143,17 @@ public class menu_reportar extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+    // Codigo para manejo de estado
     final int CAPTURA_IMAGEN = 1;
+    /**
 
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     public void uploadImage(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
@@ -166,12 +191,30 @@ public class menu_reportar extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+    /**
+
+     * Muestra un selector de archivos para que el usuario pueda seleccionar una imagen.
+
+     */
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Seleciona imagen"), PICK_IMAGE_REQUEST);
     }
+    /**
+
+     * Maneja el resultado de la actividad lanzada para seleccionar una imagen.
+
+     *
+
+     * @param requestCode El código de solicitud de la actividad que se lanzó.
+
+     * @param resultCode El código de resultado de la actividad que se lanzó.
+
+     * @param data El objeto Intent que contiene los datos devueltos por la actividad.
+
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
@@ -188,6 +231,15 @@ public class menu_reportar extends AppCompatActivity {
             }
         }
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarid(String URL) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
@@ -212,6 +264,15 @@ public class menu_reportar extends AppCompatActivity {
         requestQueue=Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void revision(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

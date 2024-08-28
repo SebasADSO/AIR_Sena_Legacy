@@ -2,9 +2,11 @@ package com.example.myapplication;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -30,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class usuario_condicion extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
@@ -42,6 +45,7 @@ public class usuario_condicion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_usuario_condicion);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
         ImageButton logout = findViewById(R.id.btt_logout);
@@ -53,6 +57,7 @@ public class usuario_condicion extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Se llaman los elemntos del xml
         btt_next_usuario = findViewById(R.id.btt_next_userinfo);
         btt_next_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,9 @@ public class usuario_condicion extends AppCompatActivity {
                         insfuc2.putExtra("doc", ndoc);
                         startActivity(insfuc2);
                         break;
+                    default:
+                        Toast.makeText(usuario_condicion.this, "Rol administrador", Toast.LENGTH_LONG).show();
+                        break;
                 }
             }
         });
@@ -96,6 +104,7 @@ public class usuario_condicion extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Metodos del consultas
         buscarid("http://localhost/AIR_Database/userinfo_condicion.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         buscarol("http://localhost/AIR_Database/userinfo_buscarrol.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -104,6 +113,15 @@ public class usuario_condicion extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarid(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
@@ -124,6 +142,8 @@ public class usuario_condicion extends AppCompatActivity {
                         textView.setTextSize(20);
                         textView.setBackgroundResource(R.drawable.roundcorner);
                         textView.setPadding(10,10,10,10);
+                        textView.setTextColor(Color.parseColor("#000000"));
+                        textView.setGravity(Gravity.CENTER);
                         textView1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         textView1.setTextSize(20);
                         textView1.setText("Condicion "+(i+1));
@@ -150,6 +170,15 @@ public class usuario_condicion extends AppCompatActivity {
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarol(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {

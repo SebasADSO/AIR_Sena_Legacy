@@ -29,22 +29,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DescriptionActivity extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     RequestQueue requestQueue;
     String ip = app_config.ip_server;
     String change = "localhost";
-String id, ndoc, rol;
-TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;
-ImageView soporte;
+    String id, ndoc, rol;
+    TextView id_reporte, cod_usuario, encabezado, descripcion, ubicacion, fecha_hora, txt_nivel_peligro, txt_tipo_peligro, txt_fecha_revision, txt_estado;
+    ImageView soporte;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_description);
+        // se obtine los elemento del ListElement_user
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = getIntent().getExtras();
         rol =extras.getString("rol");
         ndoc = extras.getString("doc");
         id = element.getId_reporte();
+        // Se llaman los elemntos del xml
         id_reporte = findViewById(R.id.txt_id_reporte);
         cod_usuario = findViewById(R.id.txt_cod_usuario);
         encabezado = findViewById(R.id.txt_encabezado);
@@ -57,6 +61,7 @@ ImageView soporte;
         txt_estado = findViewById(R.id.txt_estado);
         txt_fecha_revision = findViewById(R.id.txt_fecha_revision);
 
+        // Metodo le asigna una funcion al momento de dar click al boton salir
         ImageButton logout = findViewById(R.id.btt_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +72,7 @@ ImageView soporte;
             }
         });
 
+        //Se establece los textos a las cajas de texto
         id_reporte.setText(element.getId_reporte());
         cod_usuario.setText(element.getCod_usuario_fk());
         encabezado.setText(element.getEncabezado_reporte());
@@ -78,14 +84,18 @@ ImageView soporte;
 
         Toast.makeText(DescriptionActivity.this, id, Toast.LENGTH_SHORT).show();
 
+        // Se llama a la informacion del estado del reporte por medio del id de reporte
         estado("http://localhost/AIR_Database/consulta_estado.php?id_reporte=".replace(change, ip)+id.replace("ID:", "")+"");
 
+        // Se ajusta el link donde se obtendra la imagen del reporte
         String link = element.getSoporte_reporte().replace(change, ip);
 
+        // Se usa la dependencia de Picasso para poder obtener imagenes desde la web y se muestra atravez de un ImagenView
         Picasso.get()
                 .load(link)
                 .into(soporte);
 
+        // Retrocede hacia el anterior menu, devolviendo los datos necesarios para su funcionamiento
         Button btt_salir = findViewById(R.id.btt_salir);
         btt_salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +112,14 @@ ImageView soporte;
             return insets;
         });
     }
+    // Se creara un metodo get para optener los datos del reporte
     private void estado(String URL) {
+        // Se inicia el elemnto grafico de una barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una peticion que devolvera un array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 for (int i = 0; i < response.length(); i++) {
@@ -124,12 +138,14 @@ ImageView soporte;
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }
         );
+        // Se lanza la solicitud
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }

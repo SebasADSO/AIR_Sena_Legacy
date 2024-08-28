@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 public class menu_consultafunc extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
@@ -53,6 +54,7 @@ public class menu_consultafunc extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_consultafunc);
         ImageButton logout = findViewById(R.id.btt_logout);
+        // Metodo le asigna una funcion al momento de dar click al boton salir
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,11 +63,14 @@ public class menu_consultafunc extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // se obtine los elemento del ListElement_user
         ListElement element = (ListElement) getIntent().getSerializableExtra("ListElement");
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = getIntent().getExtras();
         rol = extras.getString("rol");
         ndoc = extras.getString("doc");
         id = element.getId_reporte();
+        // Se llaman los elemntos del xml
         id_reporte = findViewById(R.id.txt_id_reporte);
         cod_usuario = findViewById(R.id.txt_cod_usuario);
         encabezado = findViewById(R.id.txt_encabezado);
@@ -89,6 +94,7 @@ public class menu_consultafunc extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        //Se establece los textos a las cajas de texto
         String textPattern = "[a-zA-Z ]+";
         id_reporte.setText(element.getId_reporte());
         cod_usuario.setText(element.getCod_usuario_fk());
@@ -97,6 +103,7 @@ public class menu_consultafunc extends AppCompatActivity {
         ubicacion.setText(element.getUbicacion());
         fecha_hora.setText(element.getFecha_hora_reporte());
 
+        // Se llama a la informacion del estado del reporte por medio del id de reporte
         Toast.makeText(menu_consultafunc.this, id, Toast.LENGTH_SHORT).show();
         buscarid("http://localhost/AIR_Database/userinfo_datauser.php?cedula_usuario=".replace(change, ip)+ndoc+"");
 
@@ -104,10 +111,12 @@ public class menu_consultafunc extends AppCompatActivity {
 
         String link = element.getSoporte_reporte().replace(change, ip);
 
+        // Se usa la dependencia de Picasso para poder obtener imagenes desde la web y se muestra atravez de un ImagenView
         Picasso.get()
                 .load(link)
                 .into(soporte);
         Button btt_revisar = findViewById(R.id.btt_revisar);
+        // Retrocede hacia el anterior menu, devolviendo los datos necesarios para su funcionamiento
         btt_revisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +141,14 @@ public class menu_consultafunc extends AppCompatActivity {
             return insets;
         });
     }
+    // Se creara un metodo get para optener los datos del reporte
     private void estado(String URL) {
+        // Se inicia el elemnto grafico de una barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una peticion que devolvera un array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 for (int i = 0; i < response.length(); i++) {
@@ -154,19 +167,25 @@ public class menu_consultafunc extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }
         );
+        // Se lanza la solicitud
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    // Crea un metodo para actualizar
     private  void revisar(String URL) {
+        // Se inicia la barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        // Se establece un stringrequest usando POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
+            // Si la respuesta es positiva ejecuta este bloque
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "REVISADO CON EXITO", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
@@ -174,12 +193,14 @@ public class menu_consultafunc extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si la respuesta es negativa ejecuta este bloque
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getApplicationContext(), "Error: Conexión perdida", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
             }
         }){
             @Override
+            // Parametros a enviar
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("tipo_peligro", txt_tipo_peligro.getText().toString());
@@ -190,6 +211,7 @@ public class menu_consultafunc extends AppCompatActivity {
                 return parametros;
             }
         };
+        // Se envia la solicitud
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
@@ -218,9 +240,11 @@ public class menu_consultafunc extends AppCompatActivity {
             }
         }
         );
+        // Se lanza la peticion
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    // Devuelve al anterior menu
     public void salir_menu() {
         Intent salir = new Intent(menu_consultafunc.this, menu_consultaApr.class);
         salir.putExtra("doc", ndoc);

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class verificar_info extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button y creacion de string
     TextView name, last, td, ndoc, email, rol, terminos;
 
     String ip = app_config.ip_server;
@@ -44,11 +45,13 @@ public class verificar_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         Bundle user_info = extras.getBundle("datos");
         setContentView(R.layout.activity_verificar_info);
         Random rand = new Random();
         user_id_base = rand.nextInt(700);
+        // Se llaman los elemntos del xml
         user_id = Integer.toString(user_id_base);
         name = findViewById(R.id.txt_name);
         last = findViewById(R.id.txt_apellido);
@@ -70,8 +73,10 @@ public class verificar_info extends AppCompatActivity {
         ndoc.setText("N° de documento:"+"\r\n"+user_n_doc);
         email.setText("Correo electrinco:"+"\r\n"+user_correo);
         rol.setText("Rol seleccionado:"+"\r\n"+user_rol);
-        terminos.setText("A dar al boton crear usted acepta que esta de acuerdo con los terminos de uso y la politica de privacidad");
+        terminos.setText(R.string.hyperlink);
+        terminos.setMovementMethod(LinkMovementMethod.getInstance());
         crear = findViewById(R.id.subir);
+        // Evento que validara los EditText y ejecutara la consulta
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +124,15 @@ public class verificar_info extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void servicio(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

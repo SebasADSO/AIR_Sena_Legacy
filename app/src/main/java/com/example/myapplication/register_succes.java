@@ -20,6 +20,7 @@ public class register_succes extends AppCompatActivity {
         setContentView(R.layout.activity_register_succes);
         Button home = findViewById(R.id.menu);
         Intent Home = new Intent(register_succes.this, MainActivity.class);
+        // Establece evento cuando se termina el registro
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

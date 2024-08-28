@@ -1,5 +1,9 @@
 <?php
+/**
 
+ * Obtiene todos los registros de la tabla tb_usuario y devuelve ellos en formato JSON.
+
+ */
 include 'conexion.php';
 
 $consulta = ("SELECT * FROM tb_usuario");

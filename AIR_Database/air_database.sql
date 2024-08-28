@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-08-2024 a las 23:05:26
+-- Tiempo de generación: 28-08-2024 a las 21:31:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -71,7 +71,18 @@ INSERT INTO `tb_condicion_usua` (`cod_usuario_fk`, `condicion_usuario`) VALUES
 (507, 'Ninguna'),
 (507, 'Ninguna'),
 (507, 'Ceguera total'),
-(507, 'Daltonismo (deuteranopía, protanopía, tritanopía)');
+(507, 'Daltonismo (deuteranopía, protanopía, tritanopía)'),
+(52, 'Daltonismo (deuteranopía, protanopía, tritanopía)'),
+(52, 'Baja visión'),
+(52, 'Baja visión'),
+(52, 'Ninguna'),
+(52, 'Ninguna'),
+(628, 'Ninguna'),
+(628, 'Ninguna'),
+(628, 'Ninguna'),
+(628, 'Ninguna'),
+(628, 'Ninguna'),
+(1000, 'NINGUNA');
 
 -- --------------------------------------------------------
 
@@ -120,7 +131,9 @@ INSERT INTO `tb_programayficha` (`cod_usuario_fk`, `cod_programa`, `numero_ficha
 (96, 2333311, 2673125, 'ADSO', 'Diurna', '2022-12-12', '2023-01-22', '2023-02-01'),
 (40, 877841, 798465, 'ADSO', 'Nocturna', '2024-08-13', '2024-08-13', '2024-08-13'),
 (190, 3213223, 123123, 'ADSO', 'Manana', '2024-08-14', '2024-08-14', '2024-08-14'),
-(507, 7898797, 7897978, 'ADSO', 'Tarde', '2024-08-20', '2024-08-20', '2024-08-20');
+(507, 7898797, 7897978, 'ADSO', 'Tarde', '2024-08-20', '2024-08-20', '2024-08-20'),
+(52, 2131123, 3123123, 'ADSO', 'Diurna', '2024-08-27', '2024-08-27', '2024-08-27'),
+(628, 2671882, 2771531, 'ADSI', 'Tarde', '2024-08-21', '2024-08-10', '2024-08-21');
 
 -- --------------------------------------------------------
 
@@ -143,6 +156,7 @@ CREATE TABLE `tb_reporte` (
 --
 
 INSERT INTO `tb_reporte` (`id_reporte`, `cod_usuario_fk`, `encabezado_reporte`, `descripcion_reporte`, `ubicacion`, `fecha_hora_reporte`, `soporte_reporte`) VALUES
+(309, 628, 'Silla rota', 'Hay una Silla que podria provocar lesiones fisicas', 'Cafeteria', '2024-08-27 14:34:50', 'http://localhost/AIR_Database/img/309.png'),
 (360, 190, 'Auida', 'Prueba de reporte', 'SENA', '2024-08-14 12:58:07', 'http://localhost/AIR_Database/img/360.png'),
 (412, 40, 'Se cayo el porton', 'Jesse se cayo el porton', 'Sena CIMI', '2024-08-13 17:13:25', 'http://localhost/AIR_Database/img/412.png'),
 (517, 507, 'Auida x2', 'Se cayo el porton', 'Sena CIMI', '2024-08-20 12:52:30', 'http://localhost/AIR_Database/img/517.png'),
@@ -181,7 +195,8 @@ INSERT INTO `tb_revision` (`id_reporte_fk`, `tipo_peligro`, `nivel_peligro`, `fe
 (568, 'MEDIO', 'FISICO', '2024-08-16 13:30:07', 'REVISADO', 623),
 (709, 'ALTO', 'FISICO', '2024-08-16 13:22:11', 'REVISADO', 623),
 (517, 'alto', 'FISICO', '2024-08-23 12:53:32', 'REVISADO', 623),
-(558, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL);
+(558, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL),
+(309, 'DESCONOCIDO', 'DESCONOCIDO', '0000-00-00 00:00:00', 'PENDIENTE', NULL);
 
 -- --------------------------------------------------------
 
@@ -207,12 +222,14 @@ CREATE TABLE `tb_usuario` (
 
 INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
 (40, 'Permiso por protección Temporal', 456798205125, 'Sara', 'Hernandez', 'sarita@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
+(52, 'Cedula de Ciudadania', 3213123, 'eqweq', 'ewqeqw', 'test@gmail.com', 0x4161334031323334, 'ACTIVO', 'aprendiz'),
 (96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
 (107, 'Cedula de Ciudadania', 123789456123, 'Andres', 'Cardenas', 'andres@gmail.com', 0x53656e6131323334, 'ACTIVO', 'funcionario'),
 (190, 'Cedula de Ciudadania', 564554642313, 'Usuario', 'Sena', 'Sena3@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (507, 'Cedula de Ciudadania', 456798205, 'Alfredo', 'ZZZ', 'zzz@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (623, 'Cedula de Ciudadania', 6446647, 'Carlos', 'Hernandez', 'carlos@gmail.com', 0x73456e6131323334, 'INACTIVO', 'funcionario'),
-(645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'ACTIVO', 'instructor'),
+(628, 'Tarjeta de Indetidad', 3221445656, 'Otto', 'Cardenas', 'otto@gmail.com', 0x4f74746f31323340, 'ACTIVO', 'aprendiz'),
+(645, 'Cedula de Ciudadania', 32656566, 'Arturo', 'Mendoza', 'mendoza@gmail.com', 0x73656e4131323334, 'INACTIVO', 'instructor'),
 (1000, 'Cedula de Ciudadania', 6549742, 'ADMIN', 'SENA', 'air_admin@gmail.com', 0x41646d696e333231, 'ACTIVO', 'admin');
 
 --

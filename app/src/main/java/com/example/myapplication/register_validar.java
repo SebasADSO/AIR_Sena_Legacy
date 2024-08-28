@@ -79,19 +79,6 @@ public class register_validar extends AppCompatActivity {
                 }
             }
         });
-        Button email_cambiar = findViewById(R.id.btt_register_change);
-        email_cambiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText email = findViewById(R.id.txt_email_user);
-                if (email.isEnabled()) {
-                    email.setEnabled(false);
-                }
-                else {
-                    email.setEnabled(true);
-                }
-            }
-        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

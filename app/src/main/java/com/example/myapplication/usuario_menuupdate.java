@@ -13,15 +13,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class usuario_menuupdate extends AppCompatActivity {
-String ndoc;
-Button infochange, passchange;
+    // Llamado de los elementos textview, edittext, button y creacion de string
+    String ndoc;
+    Button infochange, passchange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_usuario_menuupdate);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se llaman los elemntos del xml
         infochange = findViewById(R.id.infochange);
         infochange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +42,7 @@ Button infochange, passchange;
                 startActivity(intent2);
             }
         });
+        // Evento para cerrar sesion
         ImageButton logout = findViewById(R.id.btt_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

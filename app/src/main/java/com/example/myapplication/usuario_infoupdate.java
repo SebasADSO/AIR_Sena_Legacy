@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class usuario_infoupdate extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     private TextView txt_n_doc , docselect;
     EditText txt_nombre, txt_apellidos, txt_email_user;
     String ndoc;
@@ -45,8 +46,10 @@ public class usuario_infoupdate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_usuario_infoupdate);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se llaman los elemntos del xml
         txt_nombre = findViewById(R.id.txt_username);
         txt_apellidos = findViewById(R.id.txt_lastname);
         docselect = findViewById(R.id.docselect_register);
@@ -101,6 +104,15 @@ public class usuario_infoupdate extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarid(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
@@ -133,6 +145,15 @@ public class usuario_infoupdate extends AppCompatActivity {
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void update(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

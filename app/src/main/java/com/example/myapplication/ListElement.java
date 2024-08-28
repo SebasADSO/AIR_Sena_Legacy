@@ -3,6 +3,7 @@ package com.example.myapplication;
 import java.io.Serializable;
 
 public class ListElement implements Serializable {
+    // Se establece los objetos en publicos
     public String id_reporte;
     public String cod_usuario_fk ;
     public String encabezado_reporte;
@@ -12,6 +13,7 @@ public class ListElement implements Serializable {
     public String soporte_reporte;
     public String estado;
 
+    // Se establece el metodo que pasara todos los elementos hacia sus repectivos objevtos
     public ListElement(String id_reporte, String cod_usuario_fk, String encabezado_reporte, String descripcion_reporte, String ubicacion, String fecha_hora_reporte, String soporte_reporte, String estado) {
         this.id_reporte = id_reporte;
         this.cod_usuario_fk = cod_usuario_fk;
@@ -22,6 +24,7 @@ public class ListElement implements Serializable {
         this.soporte_reporte = soporte_reporte;
         this.estado = estado;
     }
+    // Los sisguientes son objetos
     public String getId_reporte() {
         return id_reporte;
     }

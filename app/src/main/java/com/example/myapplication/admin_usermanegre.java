@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class admin_usermanegre extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ndoc;
     String ip = app_config.ip_server;
     String change = "localhost";
@@ -40,10 +41,13 @@ public class admin_usermanegre extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_usermanegre);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
         ImageButton logout = findViewById(R.id.btt_logout);
+        // Se llama el metodo de consultas
         consultas("http://localhost/AIR_Database/admin_userlist.php".replace(change, ip));
+        // Metodo le asigna una funcion al momento de dar click al boton salir
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,10 +62,14 @@ public class admin_usermanegre extends AppCompatActivity {
             return insets;
         });
     }
+    // Se creara un metodo get para optener los datos de los usuarios
     private void consultas(String URL) {
+        // Se inicia el elemnto grafico de una barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una peticion que devolvera un array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 elements = new ArrayList<>();
@@ -84,7 +92,7 @@ public class admin_usermanegre extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_LONG).show();
                     }
                 });
-
+                // Se establece el adaptador a listelement del metodo
                 RecyclerView recyclerView = findViewById(R.id.listRecycleView2);
                 recyclerView.setLayoutManager(new LinearLayoutManager(admin_usermanegre.this));
                 recyclerView.setHasFixedSize(true);
@@ -92,6 +100,7 @@ public class admin_usermanegre extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
                 Log.d("error", error.getMessage().toString());
@@ -99,9 +108,11 @@ public class admin_usermanegre extends AppCompatActivity {
             }
         }
         );
+        // Se lanza la solicitud
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    // Metodo encargado del mover hacia la vista de informacion del usuario
     public void moveToDescriptionUser(ListElement_User item) {
         Intent intent = new Intent(admin_usermanegre.this, admin_usercontrolpanel.class);
         intent.putExtra("ListElement_user", item);

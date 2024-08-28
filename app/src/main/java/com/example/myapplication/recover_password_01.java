@@ -14,15 +14,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class recover_password_01 extends AppCompatActivity {
-EditText email;
+    // Llamado de los elementos textview, edittext, button y creacion de string
+    EditText email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_recover_password01);
+        // Se llaman los elemntos del xml
         email = findViewById(R.id.txt_email_recover);
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         Button recover = findViewById(R.id.btt_recover_pass);
+        // Se establece un evento para el boton siguiente
         recover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

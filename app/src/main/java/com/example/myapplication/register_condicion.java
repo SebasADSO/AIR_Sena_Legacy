@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class register_condicion extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button, Spinners y creacion de string
     String user_rol, user_id, estado = "";
 
     String ip = app_config.ip_server;
@@ -58,9 +58,11 @@ public class register_condicion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_condicion);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle user_info = this.getIntent().getExtras();
         user_id = user_info.getString("user_id");
         user_rol = user_info.getString("user_rol");
+        // Se llaman los elemntos del xml
         condicion_one = findViewById(R.id.condicion_one);
         condicion_two = findViewById(R.id.condicion_two);
         condicion_three = findViewById(R.id.condicion_three);
@@ -74,6 +76,7 @@ public class register_condicion extends AppCompatActivity {
         condicion_five.setAdapter(selector);
         Button siguiente = findViewById(R.id.btt_next_verificar);
         Intent validar = new Intent(register_condicion.this, register_validar.class);
+        // Evento que ejecutara el metodo de insertar datos
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +96,15 @@ public class register_condicion extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private  void servicio(String URL, int index) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override

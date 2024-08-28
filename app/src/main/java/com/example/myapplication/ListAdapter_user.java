@@ -15,16 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.ViewHolder> {
+    // Variables inicializadas
     private List<ListElement_User> mData;
     private LayoutInflater mInflater;
     private Context context;
     final ListAdapter_user.OnItemClickListener listener;
 
+    // Se crea un evento click para el adactador
     public interface OnItemClickListener {
         void onItemClick(ListElement_User item);
     }
 
-
+    // Se establece Los paramentros necesarios para el adaptador
     public ListAdapter_user(List<ListElement_User> itemList, Context context, ListAdapter_user.OnItemClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -32,16 +34,19 @@ public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.View
         this.listener = listener;
     }
     @Override
+    // Obtiene la longitud de los elementos del adaptador
     public int getItemCount() {
         return  mData.size();
     }
     @NonNull
     @Override
+    // Se enlaza con una con una vista xml
     public ListAdapter_user.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.user_maneger, parent, false);
         return new ViewHolder(view);
     }
     @Override
+    // vincula los datos con la vista
     public void onBindViewHolder(final ListAdapter_user.ViewHolder holder, final int position) {
         holder.bindData(mData.get(position));
     }
@@ -49,6 +54,7 @@ public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.View
     public void setItems(List<ListElement_User> items) {
         mData = items;
     }
+    // Se crea un metodo que se extiende hacia a los elementos RecycleView y se asignan los elementos en la vista
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iconImage;
         TextView name, city, status;
@@ -60,6 +66,7 @@ public class ListAdapter_user extends RecyclerView.Adapter<ListAdapter_user.View
             status = itemView.findViewById(R.id.estadouser_txt);
         }
         void bindData(final ListElement_User item) {
+            // Se viculan de acuerdo a los elementos del ListElement
             name.setText(item.getCod_usuario());
             city.setText(item.getCedula_usuario());
             if (item.getEstado().equals("ESTADO: INACTIVO")) {

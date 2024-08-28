@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Menu_usuario extends AppCompatActivity {
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ip = app_config.ip_server;
     String change = "localhost";
     RequestQueue requestQueue;
@@ -38,8 +39,10 @@ public class Menu_usuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_usuario);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se llaman los elemntos del xml
         txt_nombre = findViewById(R.id.txt_username);
         txt_apellidos = findViewById(R.id.txt_lastname);
         docselect = findViewById(R.id.docselect_register);
@@ -48,6 +51,7 @@ public class Menu_usuario extends AppCompatActivity {
         btt_next_condicion = findViewById(R.id.btt_next_condicion);
         btt_next_rolinfo = findViewById(R.id.btt_next_rolinfo);
         btt_next_change = findViewById(R.id.btt_next_change);
+        // Inicia la actividad de actualizacion de datos
         btt_next_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +60,7 @@ public class Menu_usuario extends AppCompatActivity {
                 startActivity(change);
             }
         });
+        // Se crea un evento para cerrar sesion
         ImageButton logout = findViewById(R.id.btt_logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +70,7 @@ public class Menu_usuario extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Se crea un evento para menu de condicion
         btt_next_menu = findViewById(R.id.btt_next_menu);
         btt_next_condicion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +80,9 @@ public class Menu_usuario extends AppCompatActivity {
                 startActivity(condicion);
             }
         });
+        // Llamado del metodo
         buscarol("http://localhost/AIR_Database/userinfo_buscarrol.php?cedula_usuario=".replace(change, ip)+ndoc+"");
+        // Se crea un evento para menu de acuerdo al rol
         btt_next_rolinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,9 +105,13 @@ public class Menu_usuario extends AppCompatActivity {
                         insfuc2.putExtra("doc", ndoc);
                         startActivity(insfuc2);
                         break;
+                    default:
+                        Toast.makeText(Menu_usuario.this, "Rol administrador", Toast.LENGTH_LONG).show();
+                        break;
                 }
             }
         });
+        // Se crea un evento para vuelva al menu
         btt_next_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +121,7 @@ public class Menu_usuario extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Llamado del metodo
         buscarid("http://localhost/AIR_Database/userinfo_datauser.php?cedula_usuario=".replace(change, ip)+ndoc+"");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -116,6 +129,15 @@ public class Menu_usuario extends AppCompatActivity {
             return insets;
         });
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarid(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
@@ -149,6 +171,15 @@ public class Menu_usuario extends AppCompatActivity {
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+    /**
+
+     * Realiza una solicitud HTTP de tipo POST a la dirección URL proporcionada, enviando parámetros específicos y mostrando un diálogo de progreso mientras se realiza la solicitud.
+
+     *
+
+     * @param URL La dirección URL del servidor donde se realizará la solicitud HTTP.
+
+     */
     private void buscarol(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {

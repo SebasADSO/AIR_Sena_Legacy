@@ -20,7 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class reportar_camera extends AppCompatActivity {
-
+    // Llamado de los elementos textview, edittext, button y creacion de string
     String ndoc;
 
     Button menu;
@@ -30,9 +30,12 @@ public class reportar_camera extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_reportar_camera);
         ImageButton logout = findViewById(R.id.btt_logout);
+        // Se obtiene un bundle con la informacion de la anterior activity
         Bundle extras = this.getIntent().getExtras();
         ndoc = extras.getString("doc");
+        // Se llaman los elemntos del xml
         menu = findViewById(R.id.menu);
+        // Evento que nos devolvera al menu principal
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +45,7 @@ public class reportar_camera extends AppCompatActivity {
                 finishAffinity();
             }
         });
+        // Evento que cerrara la sesion del usuario
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
