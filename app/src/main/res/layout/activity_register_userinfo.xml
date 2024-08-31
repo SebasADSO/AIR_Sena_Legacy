@@ -221,6 +221,45 @@
                     tools:ignore="DuplicateIds" />
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/roundcorner"
+                android:backgroundTint="#C0D3AA"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#8BC34A"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minimo 8 caracteres Maximo 15\n-Al menos una letra mayúscula\n-Al menos una letra minucula\n-Al menos un dígito\n-No espacios en blanco\n-Al menos 1 caracter especial"
+                        android:textAlignment="viewStart"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/roundcorner"
+                        android:backgroundTint="#FF0000"
+                        app:srcCompat="@android:drawable/ic_dialog_info" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/btt_next_register"
                 android:layout_width="200dp"
