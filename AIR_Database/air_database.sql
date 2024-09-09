@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-08-2024 a las 21:31:00
+-- Tiempo de generación: 02-09-2024 a las 23:42:37
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -221,9 +221,9 @@ CREATE TABLE `tb_usuario` (
 --
 
 INSERT INTO `tb_usuario` (`cod_usuario`, `tipo_docu_usuario`, `cedula_usuario`, `nombre_usuario`, `apell_usuario`, `email_usuario`, `pass_user`, `estado`, `rol_user`) VALUES
-(40, 'Permiso por protección Temporal', 456798205125, 'Sara', 'Hernandez', 'sarita@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
+(40, 'Permiso por protección Temporal', 456798205125, 'Sara', 'Hernandez', 'sarita@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (52, 'Cedula de Ciudadania', 3213123, 'eqweq', 'ewqeqw', 'test@gmail.com', 0x4161334031323334, 'ACTIVO', 'aprendiz'),
-(96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x53656e6131323334, 'INACTIVO', 'aprendiz'),
+(96, 'Cedula de Ciudadania', 79846777, 'Sebas', 'Ruiz', 'sebas@gmail.com', 0x7745324031323334, 'INACTIVO', 'aprendiz'),
 (107, 'Cedula de Ciudadania', 123789456123, 'Andres', 'Cardenas', 'andres@gmail.com', 0x53656e6131323334, 'ACTIVO', 'funcionario'),
 (190, 'Cedula de Ciudadania', 564554642313, 'Usuario', 'Sena', 'Sena3@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),
 (507, 'Cedula de Ciudadania', 456798205, 'Alfredo', 'ZZZ', 'zzz@gmail.com', 0x53656e6131323334, 'ACTIVO', 'aprendiz'),

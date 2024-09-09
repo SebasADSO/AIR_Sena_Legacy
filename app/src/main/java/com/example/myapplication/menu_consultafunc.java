@@ -82,20 +82,28 @@ public class menu_consultafunc extends AppCompatActivity {
         txt_nivel_peligro = findViewById(R.id.txt_nivel_peligro);
         txt_estado = findViewById(R.id.txt_estado);
         txt_fecha_revision = findViewById(R.id.txt_fecha_revision);
+        // Se crea una variable del tipo date y se asigna la fecha actual del dispositivo
         Date c = Calendar.getInstance().getTime();
+        // Se crea un formato de fecha
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:ss:mm");
+        // Se formatea la fecha
         fecha = df.format(c);
+        // Se llama un boton del xml y se crea un evento de click
         ImageButton logout2 = findViewById(R.id.btt_logout);
         logout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Nueva instancia
                 Intent menu_home_back = new Intent(menu_consultafunc.this, MainActivity.class);
+                // Inicio de la instancia
                 startActivity(menu_home_back);
+                // Finalizacion de la instancia actual
                 finishAffinity();
             }
         });
-        //Se establece los textos a las cajas de texto
+        // Se  crea un regex que valida si solo hay letras
         String textPattern = "[a-zA-Z ]+";
+        //Se establece los textos a las cajas de texto
         id_reporte.setText(element.getId_reporte());
         cod_usuario.setText(element.getCod_usuario_fk());
         encabezado.setText(element.getEncabezado_reporte());
@@ -103,27 +111,38 @@ public class menu_consultafunc extends AppCompatActivity {
         ubicacion.setText(element.getUbicacion());
         fecha_hora.setText(element.getFecha_hora_reporte());
 
-        // Se llama a la informacion del estado del reporte por medio del id de reporte
         Toast.makeText(menu_consultafunc.this, id, Toast.LENGTH_SHORT).show();
+        // Se llama a la informacion del reporte por medio del id de usuario
         buscarid("http://localhost/AIR_Database/userinfo_datauser.php?cedula_usuario=".replace(change, ip)+ndoc+"");
 
+        // Se llama a la informacion del estado del reporte por medio del id del reporte
         estado("http://localhost/AIR_Database/consulta_estado.php?id_reporte=".replace(change, ip)+id.replace("ID:", "")+"");
 
+        // Se replasa los valores localhost por ip de la maquina (servidor) para el soporte
         String link = element.getSoporte_reporte().replace(change, ip);
 
         // Se usa la dependencia de Picasso para poder obtener imagenes desde la web y se muestra atravez de un ImagenView
         Picasso.get()
+                // procesa la imagen del servidor
                 .load(link)
+                // Si no se optiene respuesta muestra una imagen de error
+                .error(R.drawable.alert)
+                // Se asigna la imagen al imageView
                 .into(soporte);
+        // Se llama un boton del xml
         Button btt_revisar = findViewById(R.id.btt_revisar);
         // Retrocede hacia el anterior menu, devolviendo los datos necesarios para su funcionamiento
         btt_revisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Si los campos son letras devuelve true
                 if (txt_tipo_peligro.getText().toString().matches(textPattern) && txt_nivel_peligro.getText().toString().matches(textPattern)) {
+                    // Metodo para revisar reportes
                     revisar("http://localhost/AIR_Database/revision_update.php?id_reporte_fk=".replace(change, ip)+id.replace("ID:", "")+"");
                 }
+                // Si es false
                 else {
+                    // Toast de error
                     Toast.makeText(menu_consultafunc.this, "Solo se permite letras en los campos", Toast.LENGTH_LONG).show();
                 }
             }
@@ -132,6 +151,7 @@ public class menu_consultafunc extends AppCompatActivity {
         btt_salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Metodo para salir al menu de reportes
                 salir_menu();
             }
         });
@@ -150,17 +170,26 @@ public class menu_consultafunc extends AppCompatActivity {
             @Override
             // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
+                // Se crea una variable json vacia
                 JSONObject jsonObject = null;
+                // Un bucle que procesara la respuesta elemento por elemento
                 for (int i = 0; i < response.length(); i++) {
+                    // Try Catch para manejar posibles errores
                     try {
+                        // Se va almacenando la respuesta en el json vacio
                         jsonObject = response.getJSONObject(i);
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Se asigna los datos al los textview del xml
                         txt_tipo_peligro.setText(jsonObject.getString("tipo_peligro"));
                         txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro"));
                         txt_fecha_revision.setText(jsonObject.getString("fecha_revision"));
                         txt_estado.setText(jsonObject.getString("estado"));
+                        // Si hay un error en la respuesta
                     } catch (JSONException e) {
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Toast del error de la respuesta
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -169,7 +198,9 @@ public class menu_consultafunc extends AppCompatActivity {
             @Override
             // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
+                // Toast del error de la respuesta
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }
@@ -187,15 +218,20 @@ public class menu_consultafunc extends AppCompatActivity {
             @Override
             // Si la respuesta es positiva ejecuta este bloque
             public void onResponse(String s) {
+                // Toast de solicitud correcta
                 Toast.makeText(getApplicationContext(), "REVISADO CON EXITO", Toast.LENGTH_SHORT).show();
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
+                // Metodo de salir al menu
                 salir_menu();
             }
         }, new Response.ErrorListener() {
             @Override
             // Si la respuesta es negativa ejecuta este bloque
             public void onErrorResponse(VolleyError volleyError) {
+                // Toast del error de la respuesta
                 Toast.makeText(getApplicationContext(), "Error: Conexión perdida", Toast.LENGTH_SHORT).show();
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
             }
         }){
@@ -215,27 +251,42 @@ public class menu_consultafunc extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+    // Metodo para buscar el id usuario
     private void buscarid(String URL) {
+        // Se inicia el elemnto grafico de una barra de carga
         final ProgressDialog loading = ProgressDialog.show(this, "cargando...", "Espere por favor");
+        // Se crea una peticion que devolvera un array
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
+            // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
+                // Se crea una variable json vacia
                 JSONObject jsonObject = null;
+                // Un bucle que procesara la respuesta elemento por elemento
                 for (int i = 0; i < response.length(); i++) {
+                    // Try Catch para manejar posibles errores
                     try {
+                        // Se va almacenando la respuesta en el json vacio
                         jsonObject = response.getJSONObject(i);
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Asigna los valores encontrados a la variable cod_re
                         cod_re = jsonObject.getString("cod_usuario");
                     } catch (JSONException e) {
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Toast del error de la respuesta
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
+            // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
+                // Toast del error de la respuesta
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }
@@ -246,9 +297,12 @@ public class menu_consultafunc extends AppCompatActivity {
     }
     // Devuelve al anterior menu
     public void salir_menu() {
+        // Nueva instancia
         Intent salir = new Intent(menu_consultafunc.this, menu_consultaApr.class);
+        // Envia los datos a la instancia
         salir.putExtra("doc", ndoc);
         salir.putExtra("rol", rol);
+        // Iniciar instancia
         startActivity(salir);
     }
 }

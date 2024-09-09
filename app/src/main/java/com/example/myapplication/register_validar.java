@@ -52,18 +52,22 @@ public class register_validar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register_validar);
+        // Se recibe datos de la anterior activity
         Bundle user_info = this.getIntent().getExtras();
         user_id = user_info.getString("user_id");
         user_rol = user_info.getString("user_rol");
+        // Se llaman los elementos del xml
         code_one = findViewById(R.id.code_one);
         code_two = findViewById(R.id.code_two);
         code_three = findViewById(R.id.code_three);
         code_four = findViewById(R.id.code_four);
         code_five = findViewById(R.id.code_five);
         code_six = findViewById(R.id.code_six);
+        // Se llama los metodos que nos permitira crear el canal de notoficacion y enviar la notificacion
         channel();
         getCode();
         sendNotification();
+        // Boton que validara el codigo
         Button validar = findViewById(R.id.btt_register_verificar);
         validar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,17 +89,19 @@ public class register_validar extends AppCompatActivity {
             return insets;
         });
     }
+    // Metodo que creara la notificacion y la enviara
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "32")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Codigo de validación")
                 .setContentText("Para completar el registro.")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("debe ingresar el siguiente codigo en el aplicativo, Su codigo es: "+cod_verificar))
+                        .bigText("Debe ingresar el siguiente codigo en el aplicativo, Su codigo es: "+cod_verificar))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
     }
+    // Metodo que creara el canal notificacion y la definira
     private void channel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Validación";
@@ -107,7 +113,7 @@ public class register_validar extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
+    // Metodo que genera un codigo para verificar
     public String getCode() {
         Random rand = new Random();
         cod_verificar_base = rand.nextInt(999999);
@@ -118,11 +124,12 @@ public class register_validar extends AppCompatActivity {
             }
         }
     }
-
+// Servicio http tipo POST que enviara una solicitud con un encabezado que contendra los datos para actualizar el estado del usuario
     private  void servicio(String URL) {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
+            // Respuesta correcta
             public void onResponse(String s) {
                 Toast.makeText(getApplicationContext(), "Correcto", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
@@ -130,6 +137,7 @@ public class register_validar extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
+            // Respuesta fallida
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
@@ -137,6 +145,7 @@ public class register_validar extends AppCompatActivity {
             }
         }){
             @Override
+            // Datos del encabezado
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("cod_usuario", user_id);
@@ -144,6 +153,7 @@ public class register_validar extends AppCompatActivity {
                 return parametros;
             }
         };
+        // Contexto y envio de solicitud
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

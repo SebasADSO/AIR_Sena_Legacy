@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -135,24 +136,32 @@ private String[] documentos = {"Cedula de Ciudadania", "Tarjeta de Indetidad", "
             public void onResponse(String response) {
                 // Se evaluara si la respuesta no esta vacia y devolvera true
                 if(!response.isEmpty()){
-                    // Se abrira una nueva actividad que este caso sera el menu usuario
-                    Intent login = new Intent(MainActivity.this, menu_home.class);
-                    // Se mandara los datos a la otra actividad que se definio en el Intent
-                    login.putExtra("doc", ndoc.getText().toString());
-                    // Se inicia la actividad del Intent
-                    startActivity(login);
+                    //Log.d("Respuesta", response);
+                    // Valida si esta inactivo en el sistema
+                    if (response.contains("INACTIVO")) {
+                        Toast.makeText(MainActivity.this, "El usuario se encuentra desactivado", Toast.LENGTH_LONG).show();
+                    }
+                    // Valida si esta activo en el sistema
+                    else if (response.contains("ACTIVO")) {
+                        // Se abrira una nueva actividad que este caso sera el menu usuario
+                        Intent login = new Intent(MainActivity.this, menu_home.class);
+                        // Se mandara los datos a la otra actividad que se definio en el Intent
+                        login.putExtra("doc", ndoc.getText().toString());
+                        // Se inicia la actividad del Intent
+                        startActivity(login);
+                    }
                 }
                 // Si es false a la anterior condicional se ejecutara siguiente codigo
                 else {
                     // Se lanazara un mensaje tipo Toast, que nos notificara que no se encontraron usuarios o estan inactivos
-                    Toast.makeText(MainActivity.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Usuario no registrado o datos incorrectos", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             // Al obtener una respuesta negativa se pasara un metodo que nos notificara que algo fallo
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "El usuario no existe", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Error en la conexión", Toast.LENGTH_LONG).show();
             }
         }){
             @Nullable

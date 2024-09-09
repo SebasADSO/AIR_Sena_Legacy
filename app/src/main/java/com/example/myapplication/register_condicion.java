@@ -80,10 +80,14 @@ public class register_condicion extends AppCompatActivity {
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Obtiene los elementos seleccionados del Spinner
                 condiciones = new String[]{condicion_one.getSelectedItem().toString(), condicion_two.getSelectedItem().toString(), condicion_three.getSelectedItem().toString(), condicion_four.getSelectedItem().toString(), condicion_five.getSelectedItem().toString()};
+                // Datos a enviar a otra activity
                 validar.putExtra("user_id", user_id);
                 validar.putExtra("rol", user_rol);
+                // Bucle para insertar condiciones del usuario
                 for (int i = 0; i < condiciones.length; i++) {
+                    // Metodo que ejecuta el servicio web
                     servicio("http://localhost/AIR_Database/register_condicion.php".replace(change, ip), i);
                 }
                 validar.putExtra("user_id", user_id);

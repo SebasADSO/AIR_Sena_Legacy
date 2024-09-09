@@ -72,7 +72,7 @@ public class DescriptionActivity extends AppCompatActivity {
             }
         });
 
-        //Se establece los textos a las cajas de texto
+        //Se establece los textos a las cajas de texto con los elementos traidos de la anterior activity
         id_reporte.setText(element.getId_reporte());
         cod_usuario.setText(element.getCod_usuario_fk());
         encabezado.setText(element.getEncabezado_reporte());
@@ -80,8 +80,7 @@ public class DescriptionActivity extends AppCompatActivity {
         ubicacion.setText(element.getUbicacion());
         fecha_hora.setText(element.getFecha_hora_reporte());
 
-
-
+        // Se muestra por un Toast el id del usuario
         Toast.makeText(DescriptionActivity.this, id, Toast.LENGTH_SHORT).show();
 
         // Se llama a la informacion del estado del reporte por medio del id de reporte
@@ -92,7 +91,11 @@ public class DescriptionActivity extends AppCompatActivity {
 
         // Se usa la dependencia de Picasso para poder obtener imagenes desde la web y se muestra atravez de un ImagenView
         Picasso.get()
+                // procesa la imagen del servidor
                 .load(link)
+                // Si no se optiene respuesta muestra una imagen de error
+                .error(R.drawable.alert)
+                // Se asigna la imagen al imageView
                 .into(soporte);
 
         // Retrocede hacia el anterior menu, devolviendo los datos necesarios para su funcionamiento
@@ -100,9 +103,12 @@ public class DescriptionActivity extends AppCompatActivity {
         btt_salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Se abrira una nueva actividad que este caso sera el menu consultas
                 Intent salir = new Intent(DescriptionActivity.this, menu_consultaApr.class);
+                // Manda los datos a la actividad del intent
                 salir.putExtra("doc", ndoc);
                 salir.putExtra("rol", rol);
+                // Inicia la activity
                 startActivity(salir);
             }
         });
@@ -121,17 +127,26 @@ public class DescriptionActivity extends AppCompatActivity {
             @Override
             // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
+                // Se crea una variable json vacia
                 JSONObject jsonObject = null;
+                // Un bucle que procesara la respuesta elemento por elemento
                 for (int i = 0; i < response.length(); i++) {
+                    // Try Catch para manejar posibles errores
                     try {
+                        // Se va almacenando la respuesta en el json vacio
                         jsonObject = response.getJSONObject(i);
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Se asigna los datos al los textview del xml
                         txt_tipo_peligro.setText(jsonObject.getString("tipo_peligro"));
                         txt_nivel_peligro.setText(jsonObject.getString("nivel_peligro"));
                         txt_fecha_revision.setText(jsonObject.getString("fecha_revision"));
                         txt_estado.setText(jsonObject.getString("estado"));
+                        // Si hay un error en la respuesta
                     } catch (JSONException e) {
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Toast del error de la respuesta
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -140,7 +155,9 @@ public class DescriptionActivity extends AppCompatActivity {
             @Override
             // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
+                // Toast del error de la respuesta
                 Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         }

@@ -108,17 +108,25 @@ public class admin_login extends AppCompatActivity {
             public void onResponse(String response) {
                 // Se evaluara si la respuesta no esta vacia y devolvera true
                 if(!response.isEmpty()){
-                    // Se abrira una nueva actividad que este caso sera el gestion de usuarios
-                    Intent login = new Intent(admin_login.this, admin_usermanegre.class);
-                    // Se mandara los datos a la otra actividad que se definio en el Intent
-                    login.putExtra("doc", ndoc.getText().toString());
-                    // Se inicia la actividad del Intent
-                    startActivity(login);
+                    //Log.d("Respuesta", response);
+                    // Valida si esta inactivo en el sistema
+                    if (response.contains("INACTIVO")) {
+                        Toast.makeText(admin_login.this, "El usuario se encuentra desactivado", Toast.LENGTH_LONG).show();
+                    }
+                    // Valida si esta activo en el sistema
+                    else if (response.contains("ACTIVO")) {
+                        // Se abrira una nueva actividad que este caso sera el menu usuario
+                        Intent login = new Intent(admin_login.this, admin_usermanegre.class);
+                        // Se mandara los datos a la otra actividad que se definio en el Intent
+                        login.putExtra("doc", ndoc.getText().toString());
+                        // Se inicia la actividad del Intent
+                        startActivity(login);
+                    }
                 }
                 // Si es false a la anterior condicional se ejecutara siguiente codigo
                 else {
                     // Se lanazara un mensaje tipo Toast, que nos notificara que no se encontraron usuarios o estan inactivos
-                    Toast.makeText(admin_login.this, "Usuario no registrado o esta INACTIVO", Toast.LENGTH_LONG).show();
+                    Toast.makeText(admin_login.this, "Usuario no registrado o datos incorrectos", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {

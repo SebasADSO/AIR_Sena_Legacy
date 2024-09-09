@@ -97,36 +97,54 @@ public class menu_consultaApr extends AppCompatActivity {
             @Override
             // Si la repuesta es positiva devolvera los datos
             public void onResponse(JSONArray response) {
+                // Se va almacenando la respuesta en el json vacio
                 JSONObject jsonObject = null;
+                // Se crea una lista de elementos con el listelement_user
                 elements = new ArrayList<>();
+                // Un bucle que procesara la respuesta elemento por elemento
                 for (int i = 0; i < response.length(); i++) {
+                    // Try Catch para manejar posibles errores
                     try {
+                        // Se va almacenando la respuesta en el json vacio
                         jsonObject = response.getJSONObject(i);
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
+                        // Al listelement se pasan los elementos para su adaptador
                         elements.add(new ListElement("ID: "+jsonObject.getString("id_reporte"), "Codigo del usuario: "+jsonObject.getString("cod_usuario_fk"), "Encabezado: "+jsonObject.getString("encabezado_reporte"), "Descripcion: "+ jsonObject.getString("descripcion_reporte"), "Ubicación: "+jsonObject.getString("ubicacion"), "Fecha y hora: "+jsonObject.getString("fecha_hora_reporte"), jsonObject.getString("soporte_reporte"), jsonObject.getString("estado")));
+                        // logcat para  verificar que dichos elementos por consola (No visible al usuario).
                         Log.d("Bien", elements.toString());
-
+                        // Si hay un error en la respuesta
                     } catch (JSONException e) {
+                        // Finaliza el elemento grafico de carga
                         loading.dismiss();
                         Log.d("Mal", e.getMessage());
+                        // Toast del error de la respuesta
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+                // Se asigna los elementos al adaptador listelement_user con los valores de la respuesta
                 ListAdapter listAdapter = new ListAdapter(elements, menu_consultaApr.this, new ListAdapter.OnItemClickListener() {
                     @Override
+                    // La anotación @Override simplemente se utiliza, para forzar al compilador a comprobar en tiempo de compilación que estás sobrescribiendo correctamente un método, y de este modo evitar errores en tiempo de ejecución, los cuales serían mucho más difíciles de detectar.
                     public void onItemClick(ListElement item) {
+                        // Ejecutara un metodo que nos enviara a una vista de consulta del reporte
                         moveToDescription(item);
                     }
                 });
+                // Se crea una variable que contendra al recyclerview en el xml
                 RecyclerView recyclerView = findViewById(R.id.listRecycleView);
+                // En el caso de requirir se corregira el tamaño teniendo el cuenta el tamaño de la activity
                 recyclerView.setHasFixedSize(true);
+                // Se asigna un layout para poder mostrarse en pantalla
                 recyclerView.setLayoutManager(new LinearLayoutManager(menu_consultaApr.this));
+                // Se asigna los elementos al adaptador
                 recyclerView.setAdapter(listAdapter);
             }
         }, new Response.ErrorListener() {
             @Override
             // Si es negativa devolvera un maensaje de error
             public void onErrorResponse(VolleyError error) {
+                // Finaliza el elemento grafico de carga
                 loading.dismiss();
                 Log.d("error", error.getMessage().toString());
                 Toast.makeText(getApplicationContext(), "No se encontraron reportes", Toast.LENGTH_SHORT).show();
@@ -139,33 +157,50 @@ public class menu_consultaApr extends AppCompatActivity {
     }
     // se crea un metodo que nos permitira movernos hacia las vista que mostrara la informacion del reporte
     public void moveToDescription(ListElement item) {
+        // Un switch que procesara el rol del usuario
         switch (rol) {
+            // Si rol es igual a aprendiz
             case "aprendiz":
+                // Se crea una nueva instancia
                 Intent intent = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                // Se envia los datos
                 intent.putExtra("doc", ndoc);
                 intent.putExtra("rol", rol);
                 intent.putExtra("ListElement", item);
+                // Se inicia la activity
                 startActivity(intent);
                 break;
+            // Si rol es igual a instructor
             case "instructor":
+                // Se crea una nueva instancia
                 Intent intent2 = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                // Se envia los datos
                 intent2.putExtra("doc", ndoc);
                 intent2.putExtra("rol", rol);
                 intent2.putExtra("ListElement", item);
+                // Se inicia la activity
                 startActivity(intent2);
                 break;
+            // Si rol es igual a funcionario
             case "funcionario":
+                // Se crea una nueva instancia
                 Intent intent3 = new Intent(menu_consultaApr.this, menu_consultafunc.class);
+                // Se envia los datos
                 intent3.putExtra("doc", ndoc);
                 intent3.putExtra("rol", rol);
                 intent3.putExtra("ListElement", item);
+                // Se inicia la activity
                 startActivity(intent3);
                 break;
+            // Si rol es igual a admin
             case "admin":
+                // Se crea una nueva instancia
                 Intent intent4 = new Intent(menu_consultaApr.this, DescriptionActivity.class);
+                // Se envia los datos
                 intent4.putExtra("doc", ndoc);
                 intent4.putExtra("rol", rol);
                 intent4.putExtra("ListElement", item);
+                // Se inicia la activity
                 startActivity(intent4);
                 break;
         }
